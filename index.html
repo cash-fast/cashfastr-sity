@@ -7,11 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #00D9FF;
             --primary-dark: #0099FF;
@@ -19,21 +15,19 @@
             --gold: #FFD700;
             --gold-glow: rgba(255, 215, 0, 0.3);
             --success: #22C55E;
-            --success-glow: rgba(34, 197, 94, 0.3);
             --danger: #EF4444;
             --dark-bg: #0F172A;
             --card-bg: rgba(20, 30, 60, 0.92);
             --text-light: #FFFFFF;
             --text-muted: #C0C8E0;
             --border-color: rgba(0, 217, 255, 0.25);
-            --radius: 1rem;
         }
         body {
             font-family: 'Cairo', sans-serif;
             background: linear-gradient(145deg, #0A0F2A 0%, #111838 50%, #0A0F2A 100%);
             color: var(--text-light);
             min-height: 100vh;
-            padding: 1.5rem;
+            padding: 1rem;
         }
         .container {
             max-width: 900px;
@@ -42,55 +36,53 @@
             backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
             border-radius: 1.5rem;
-            padding: 2rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 217, 255, 0.05);
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
         @media (max-width: 640px) {
             .container { padding: 1rem; }
         }
         .header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             padding-bottom: 1rem;
             border-bottom: 2px solid var(--border-color);
         }
         .header h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 900;
             background: linear-gradient(135deg, #FFFFFF, var(--primary), var(--gold));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 30px rgba(0, 217, 255, 0.2);
         }
         .header p {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         .header .badge {
             display: inline-block;
             background: rgba(0, 217, 255, 0.15);
             border: 1px solid var(--primary);
             border-radius: 2rem;
-            padding: 0.3rem 1.2rem;
-            font-size: 0.75rem;
+            padding: 0.3rem 1rem;
+            font-size: 0.7rem;
             color: var(--primary);
-            margin-top: 0.5rem;
-            box-shadow: 0 0 20px var(--primary-glow);
+            margin-top: 0.3rem;
         }
         .nav-links {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 0.8rem;
+            margin-top: 0.5rem;
         }
         .nav-links a {
             color: var(--primary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            padding: 0.3rem 1rem;
+            padding: 0.2rem 0.8rem;
             border: 1px solid var(--border-color);
             border-radius: 2rem;
             transition: 0.3s;
@@ -98,27 +90,20 @@
         .nav-links a:hover {
             background: rgba(0, 217, 255, 0.1);
             border-color: var(--primary);
-            box-shadow: 0 0 15px var(--primary-glow);
         }
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
+        .form-group { margin-bottom: 1rem; }
         .form-group label {
             display: block;
             font-weight: 700;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             color: var(--primary);
-            font-size: 0.95rem;
-            text-shadow: 0 0 10px rgba(0, 217, 255, 0.1);
+            font-size: 0.9rem;
         }
-        .form-group label .required {
-            color: var(--danger);
-        }
+        .form-group label .required { color: var(--danger); }
         .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form-group select {
             width: 100%;
-            padding: 0.9rem 1rem;
+            padding: 0.8rem 1rem;
             background: rgba(0, 0, 0, 0.5);
             border: 2px solid var(--border-color);
             border-radius: 0.8rem;
@@ -128,38 +113,33 @@
             transition: 0.3s;
         }
         .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
+        .form-group select:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 25px var(--primary-glow);
+            box-shadow: 0 0 20px var(--primary-glow);
         }
-        .form-group select option {
-            background: #1a1f2e;
-        }
+        .form-group select option { background: #1a1f2e; }
         .form-group .hint {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
-            margin-top: 0.3rem;
+            margin-top: 0.2rem;
         }
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 0.8rem;
         }
         @media (max-width: 640px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+            .form-row { grid-template-columns: 1fr; }
         }
         .loan-amount-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 0.6rem;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 0.5rem;
             margin: 0.5rem 0;
         }
         .loan-amount-grid .amount-btn {
-            padding: 0.7rem;
+            padding: 0.6rem;
             background: rgba(0, 0, 0, 0.4);
             border: 2px solid var(--border-color);
             border-radius: 0.8rem;
@@ -167,31 +147,30 @@
             cursor: pointer;
             transition: 0.3s;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
         .loan-amount-grid .amount-btn:hover {
             border-color: var(--primary);
             color: var(--text-light);
-            box-shadow: 0 0 20px var(--primary-glow);
         }
         .loan-amount-grid .amount-btn.selected {
             border-color: var(--gold);
             background: rgba(255, 215, 0, 0.12);
             color: var(--gold);
-            box-shadow: 0 0 25px var(--gold-glow);
+            box-shadow: 0 0 20px var(--gold-glow);
         }
         .loan-amount-grid .amount-btn .price {
             font-weight: 800;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         .loan-amount-grid .amount-btn .detail {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
         }
         .file-upload {
             border: 2px dashed var(--border-color);
             border-radius: 0.8rem;
-            padding: 1.5rem;
+            padding: 1rem;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
@@ -201,7 +180,6 @@
         .file-upload:hover {
             border-color: var(--primary);
             background: rgba(0, 217, 255, 0.05);
-            box-shadow: 0 0 20px var(--primary-glow);
         }
         .file-upload input[type="file"] {
             position: absolute;
@@ -213,74 +191,33 @@
             cursor: pointer;
         }
         .file-upload .icon {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             color: var(--text-muted);
         }
         .file-upload .text {
             color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 0.3rem;
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
         }
         .file-upload .file-name {
             color: var(--primary);
             font-weight: 600;
-            margin-top: 0.3rem;
-            font-size: 0.85rem;
-        }
-        .camera-container {
-            display: none;
-            position: relative;
-            margin-top: 0.5rem;
-            border-radius: 0.8rem;
-            overflow: hidden;
-            border: 2px solid var(--primary);
-        }
-        .camera-container video {
-            width: 100%;
-            max-height: 300px;
-            background: #000;
-            border-radius: 0.8rem;
-        }
-        .camera-container .camera-controls {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: center;
-            padding: 0.5rem;
-            background: rgba(0, 0, 0, 0.7);
-        }
-        .camera-container .camera-controls button {
-            padding: 0.4rem 1rem;
-            border: none;
-            border-radius: 2rem;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: 'Cairo', sans-serif;
-            transition: 0.3s;
-        }
-        .camera-container .camera-controls .btn-capture {
-            background: var(--success);
-            color: #0A0F2A;
-        }
-        .camera-container .camera-controls .btn-capture:hover {
-            box-shadow: 0 0 20px var(--success-glow);
-        }
-        .camera-container .camera-controls .btn-close-camera {
-            background: var(--danger);
-            color: white;
+            margin-top: 0.2rem;
+            font-size: 0.8rem;
         }
         .guarantor-options {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.4rem;
             flex-wrap: wrap;
         }
         .guarantor-options .opt-btn {
-            padding: 0.5rem 1.2rem;
+            padding: 0.4rem 1rem;
             background: rgba(0, 0, 0, 0.3);
             border: 2px solid var(--border-color);
             border-radius: 2rem;
             cursor: pointer;
             transition: 0.3s;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             font-family: 'Cairo', sans-serif;
         }
@@ -292,25 +229,20 @@
             border-color: var(--gold);
             color: var(--gold);
             background: rgba(255, 215, 0, 0.08);
-            box-shadow: 0 0 15px var(--gold-glow);
         }
         .agreement-box {
             background: rgba(0, 0, 0, 0.35);
             border: 2px solid var(--border-color);
             border-radius: 0.8rem;
-            padding: 1.2rem;
+            padding: 1rem;
             margin: 1rem 0;
             text-align: center;
-            transition: 0.3s;
-        }
-        .agreement-box:hover {
-            border-color: var(--primary);
         }
         .agreement-box .agreement-text {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             line-height: 1.8;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             text-align: right;
         }
         .agreement-box .agreement-text strong {
@@ -333,42 +265,36 @@
             background: rgba(0, 217, 255, 0.12);
         }
         .agreement-box .agreement-check input[type="checkbox"] {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             accent-color: var(--primary);
             cursor: pointer;
             flex-shrink: 0;
         }
         .agreement-box .agreement-check label {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             color: var(--primary);
             cursor: pointer;
             margin: 0;
-            text-shadow: 0 0 10px rgba(0, 217, 255, 0.1);
         }
         .agreement-box .agreement-check.checked {
             border-color: var(--success);
             background: rgba(34, 197, 94, 0.12);
-            box-shadow: 0 0 25px var(--success-glow);
         }
         .wallet-notice {
             background: rgba(255, 215, 0, 0.1);
             border: 1px solid rgba(255, 215, 0, 0.3);
             border-radius: 0.8rem;
-            padding: 0.8rem;
-            margin-bottom: 1rem;
+            padding: 0.6rem;
+            margin-bottom: 0.8rem;
             color: var(--gold);
-            font-size: 0.85rem;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.05);
-        }
-        .wallet-notice i {
-            margin-left: 0.5rem;
+            font-size: 0.8rem;
         }
         .btn-submit {
             background: linear-gradient(90deg, var(--primary), var(--primary-dark));
             color: #0A0F2A;
-            padding: 1rem 2rem;
+            padding: 0.9rem 2rem;
             border: none;
             border-radius: 3rem;
             font-weight: 800;
@@ -376,7 +302,7 @@
             cursor: pointer;
             transition: 0.3s;
             width: 100%;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
             font-family: 'Cairo', sans-serif;
             box-shadow: 0 4px 20px var(--primary-glow);
         }
@@ -400,44 +326,32 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            animation: fadeIn 0.3s ease;
         }
-        .modal-overlay.show {
-            display: flex;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        .modal-overlay.show { display: flex; }
         .modal-content {
             background: linear-gradient(145deg, #1A1F3E, #0E1228);
             border-radius: 2rem;
-            max-width: 500px;
+            max-width: 480px;
             width: 90%;
             padding: 2rem;
             border: 2px solid var(--gold);
             box-shadow: 0 0 50px rgba(255, 215, 0, 0.2);
             text-align: center;
-            animation: slideUp 0.3s ease;
-        }
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
         .modal-content .icon {
-            font-size: 4.5rem;
+            font-size: 4rem;
             color: var(--success);
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
         .modal-content h2 {
             color: var(--gold);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
         .modal-content p {
             color: var(--text-muted);
             line-height: 1.8;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         .modal-content .highlight {
             color: var(--gold);
@@ -446,91 +360,79 @@
         .modal-content .btn-close-modal {
             background: linear-gradient(90deg, var(--gold), #FFA500);
             color: #0A0F2A;
-            padding: 0.8rem 2rem;
+            padding: 0.7rem 2rem;
             border: none;
             border-radius: 3rem;
             font-weight: 800;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
             font-family: 'Cairo', sans-serif;
             transition: 0.3s;
-            box-shadow: 0 4px 20px var(--gold-glow);
         }
         .modal-content .btn-close-modal:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
-        }
-        .modal-content .btn-close-modal i {
-            margin-left: 0.5rem;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
         }
         .modal-content .link-query {
             display: inline-block;
             background: rgba(0, 217, 255, 0.1);
             border: 1px solid var(--primary);
             border-radius: 2rem;
-            padding: 0.6rem 1.5rem;
+            padding: 0.5rem 1.2rem;
             color: var(--primary);
             text-decoration: none;
             font-weight: 700;
             margin-top: 0.5rem;
-            transition: 0.3s;
-        }
-        .modal-content .link-query:hover {
-            background: rgba(0, 217, 255, 0.2);
-            box-shadow: 0 0 25px var(--primary-glow);
+            font-size: 0.85rem;
         }
         .alert {
-            padding: 1rem;
+            padding: 0.8rem;
             border-radius: 0.8rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             display: none;
+            font-size: 0.9rem;
         }
         .alert.error {
             display: block;
             background: rgba(239, 68, 68, 0.15);
             border: 1px solid var(--danger);
             color: var(--danger);
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
         }
         .alert.warning {
             display: block;
             background: rgba(255, 215, 0, 0.15);
             border: 1px solid var(--gold);
             color: var(--gold);
-            box-shadow: 0 0 15px var(--gold-glow);
         }
-        @media (max-width: 480px) {
-            .loan-amount-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .alert.success {
+            display: block;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid var(--success);
+            color: var(--success);
         }
         .section-title {
             color: var(--primary);
-            font-size: 1.2rem;
-            margin: 1.5rem 0 0.5rem;
+            font-size: 1.1rem;
+            margin: 1.2rem 0 0.5rem;
             padding-bottom: 0.3rem;
             border-bottom: 2px solid var(--border-color);
-            text-shadow: 0 0 10px rgba(0, 217, 255, 0.1);
         }
         .section-title i {
             color: var(--gold);
-            margin-left: 0.5rem;
+            margin-left: 0.3rem;
         }
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
-        input[type="number"] {
-            -moz-appearance: textfield;
-        }
+        input[type="number"] { -moz-appearance: textfield; }
         .number-input {
             text-align: center;
             letter-spacing: 2px;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
-        /* رسالة التحميل */
         .loading-overlay {
             display: none;
             position: fixed;
@@ -544,46 +446,78 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.8rem;
         }
-        .loading-overlay.show {
-            display: flex;
-        }
+        .loading-overlay.show { display: flex; }
         .loading-overlay .spinner {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border: 4px solid var(--border-color);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        .loading-overlay p {
-            color: var(--text-light);
-            font-size: 1.1rem;
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-overlay p { color: var(--text-light); font-size: 1rem; }
+        .camera-container {
+            display: none;
+            margin-top: 0.5rem;
+            border-radius: 0.8rem;
+            overflow: hidden;
+            border: 2px solid var(--primary);
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .camera-container video {
+            width: 100%;
+            max-height: 250px;
+            background: #000;
+        }
+        .camera-container .camera-controls {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        .camera-container .camera-controls button {
+            padding: 0.3rem 0.8rem;
+            border: none;
+            border-radius: 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+        }
+        .camera-container .camera-controls .btn-capture {
+            background: var(--success);
+            color: #0A0F2A;
+        }
+        .camera-container .camera-controls .btn-close-camera {
+            background: var(--danger);
+            color: white;
+        }
+        @media (max-width: 480px) {
+            .loan-amount-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
 
-<div class="container" id="app">
+<div class="container">
     <div class="header">
         <h1>⚡ Cash Faster</h1>
         <p>نموذج تسجيل طلب تمويل جديد</p>
         <div class="badge"><i class="fas fa-lock"></i> بياناتك مشفرة 256-bit</div>
         <div class="nav-links">
             <a href="https://cash-fast.github.io/CashFaster--login/" target="_blank"><i class="fas fa-home"></i> الرئيسية</a>
-            <a href="https://cash-fast.github.io/Esti3lam-tlabat/" target="_blank"><i class="fas fa-search"></i> استعلام عن طلب</a>
+            <a href="https://cash-fast.github.io/Esti3lam-tlabat/" target="_blank"><i class="fas fa-search"></i> استعلام</a>
             <a href="https://cash-fast.github.io/Rabtwilet/" target="_blank"><i class="fas fa-link"></i> ربط الحساب</a>
         </div>
     </div>
 
     <div id="alert" class="alert"></div>
 
-    <form id="registrationForm">
-        <!-- ===== البيانات الشخصية ===== -->
+    <form id="registrationForm" onsubmit="return false;">
+
+        <!-- البيانات الشخصية -->
         <div class="section-title"><i class="fas fa-user"></i> البيانات الشخصية</div>
 
         <div class="form-group">
@@ -598,7 +532,7 @@
         </div>
 
         <div class="form-group">
-            <label>العنوان بالتفصيل + علامة مميزة بجوار سكنك <span class="required">*</span></label>
+            <label>العنوان بالتفصيل + علامة مميزة <span class="required">*</span></label>
             <input type="text" id="address" placeholder="محافظة / مركز / شارع + علامة مميزة" required>
         </div>
 
@@ -614,7 +548,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>الوظيفة أو مصدر الدخل <span class="required">*</span></label>
+                <label>الوظيفة <span class="required">*</span></label>
                 <select id="job" required>
                     <option value="">اختر...</option>
                     <option value="موظف حكومي">موظف حكومي</option>
@@ -632,33 +566,32 @@
         <div class="form-group">
             <label>مقدار دخلك الشهرى <span class="required">*</span></label>
             <input type="number" id="monthlyIncome" placeholder="مثال: 8000" min="2000" required>
-            <div class="hint">أدخل دخلك الشهري بالجنيه المصري (بداية من 2000 ج.م)</div>
+            <div class="hint">أدخل دخلك الشهري (بداية من 2000 ج.م)</div>
         </div>
 
-        <!-- ===== بيانات المحفظة ===== -->
+        <!-- المحفظة -->
         <div class="section-title"><i class="fas fa-wallet"></i> بيانات المحفظة</div>
 
         <div class="wallet-notice">
-            <i class="fas fa-info-circle"></i>
-            <strong>تنبيه هام:</strong> خدمتنا حالياً تدعم <strong>اتصالات كاش فقط</strong>.
+            <i class="fas fa-info-circle"></i> خدمتنا حالياً تدعم <strong>اتصالات كاش فقط</strong>
         </div>
 
         <div class="form-group">
-            <label>نوع المحفظة المستلمة للقرض <span class="required">*</span></label>
+            <label>نوع المحفظة <span class="required">*</span></label>
             <select id="walletType" required>
                 <option value="">اختر...</option>
                 <option value="اتصالات كاش">اتصالات كاش (مدعوم)</option>
-                <option value="فودافون كاش">فودافون كاش (غير مدعوم)</option>
+                <option value="فودافون كاش">فودافون كاش</option>
                 <option value="لا يوجد محفظة">لا يوجد محفظة</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label>رقم المحفظة المستلمة للقرض</label>
+            <label>رقم المحفظة</label>
             <input type="tel" id="walletNumber" placeholder="مثال: 01123456789">
         </div>
 
-        <!-- ===== بيانات الضامن ===== -->
+        <!-- الضامن -->
         <div class="section-title"><i class="fas fa-handshake"></i> بيانات الضامن</div>
 
         <div class="form-group">
@@ -693,7 +626,7 @@
         </div>
 
         <div class="form-group">
-            <label>هل الضامن يعلم بهذا الإجراء؟ <span class="required">*</span></label>
+            <label>هل الضامن يعلم؟ <span class="required">*</span></label>
             <select id="guarantorAware" required>
                 <option value="">اختر...</option>
                 <option value="نعم يعلم">نعم يعلم</option>
@@ -701,82 +634,75 @@
             </select>
         </div>
 
-        <!-- ===== بيانات التواصل ===== -->
+        <!-- التواصل -->
         <div class="section-title"><i class="fas fa-phone"></i> بيانات التواصل</div>
 
         <div class="form-group">
-            <label>رقم واتساب للتواصل معك <span class="required">*</span></label>
+            <label>رقم واتساب <span class="required">*</span></label>
             <input type="tel" id="whatsapp" placeholder="مثال: 01123456789" required>
         </div>
 
         <div class="form-group">
-            <label>اسم صفحتك على فيس بوك</label>
+            <label>اسم صفحة فيس بوك</label>
             <input type="text" id="facebookPage" placeholder="مثال: Ahmed Mohamed">
         </div>
 
-        <!-- ===== المبلغ المطلوب ===== -->
+        <!-- المبلغ -->
         <div class="section-title"><i class="fas fa-money-bill-wave"></i> المبلغ المطلوب</div>
 
         <div class="form-group">
-            <label>اختر المبلغ المناسب لك <span class="required">*</span></label>
+            <label>اختر المبلغ <span class="required">*</span></label>
             <div class="loan-amount-grid" id="loanAmountGrid">
-                <div class="amount-btn" data-value="30000"><div class="price">30,000 ج.م</div><div class="detail">12 شهر • 3,325 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="35000"><div class="price">35,000 ج.م</div><div class="detail">12 شهر • 3,875 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="40000"><div class="price">40,000 ج.م</div><div class="detail">18 شهر • 2,965 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="45000"><div class="price">45,000 ج.م</div><div class="detail">18 شهر • 3,325 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="50000"><div class="price">50,000 ج.م</div><div class="detail">24 شهر • 2,725 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="55000"><div class="price">55,000 ج.م</div><div class="detail">24 شهر • 3,075 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="60000"><div class="price">60,000 ج.م</div><div class="detail">24 شهر • 3,085 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="65000"><div class="price">65,000 ج.م</div><div class="detail">26 شهر • 3,325 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="70000"><div class="price">70,000 ج.م</div><div class="detail">26 شهر • 3,585 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="75000"><div class="price">75,000 ج.م</div><div class="detail">26 شهر • 3,845 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="80000"><div class="price">80,000 ج.م</div><div class="detail">30 شهر • 3,550 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="85000"><div class="price">85,000 ج.м</div><div class="detail">30 شهر • 3,775 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="90000"><div class="price">90,000 ج.م</div><div class="detail">30 شهر • 3,990 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="95000"><div class="price">95,000 ج.م</div><div class="detail">30 شهر • 4,220 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="100000"><div class="price">100,000 ج.م</div><div class="detail">32 شهر • 4,157 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="105000"><div class="price">105,000 ج.م</div><div class="detail">32 شهر • 4,375 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="110000"><div class="price">110,000 ج.م</div><div class="detail">32 شهر • 4,580 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="115000"><div class="price">115,000 ج.م</div><div class="detail">38 شهر • 4,075 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="120000"><div class="price">120,000 ج.م</div><div class="detail">38 شهر • 4,235 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="125000"><div class="price">125,000 ج.م</div><div class="detail">38 شهر • 4,035 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="130000"><div class="price">130,000 ج.م</div><div class="detail">42 شهر • 4,400 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="135000"><div class="price">135,000 ج.م</div><div class="detail">42 شهر • 4,305 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="140000"><div class="price">140,000 ج.م</div><div class="detail">42 شهر • 4,495 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="145000"><div class="price">145,000 ج.م</div><div class="detail">48 شهر • 4,075 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="150000"><div class="price">150,000 ج.م</div><div class="detail">48 شهر • 4,205 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="155000"><div class="price">155,000 ج.م</div><div class="detail">48 شهر • 4,315 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="160000"><div class="price">160,000 ج.م</div><div class="detail">48 شهر • 4,435 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="165000"><div class="price">165,000 ج.م</div><div class="detail">48 شهر • 4,615 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="170000"><div class="price">170,000 ج.م</div><div class="detail">48 شهر • 4,725 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="175000"><div class="price">175,000 ج.م</div><div class="detail">48 شهر • 4,848 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="180000"><div class="price">180,000 ج.م</div><div class="detail">54 شهر • 4,435 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="185000"><div class="price">185,000 ج.م</div><div class="detail">54 شهر • 4,557 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="190000"><div class="price">190,000 ج.م</div><div class="detail">60 شهر • 4,215 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="195000"><div class="price">195,000 ج.م</div><div class="detail">60 شهر • 4,325 ج.م/ش</div></div>
-                <div class="amount-btn" data-value="200000"><div class="price">200,000 ج.م</div><div class="detail">60 شهر • 4,440 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="30000"><div class="price">30,000 ج.م</div><div class="detail">12 شهر • 3,325 ج.م</div></div>
+                <div class="amount-btn" data-value="35000"><div class="price">35,000 ج.م</div><div class="detail">12 شهر • 3,875 ج.م</div></div>
+                <div class="amount-btn" data-value="40000"><div class="price">40,000 ج.م</div><div class="detail">18 شهر • 2,965 ج.م</div></div>
+                <div class="amount-btn" data-value="45000"><div class="price">45,000 ج.م</div><div class="detail">18 شهر • 3,325 ج.م</div></div>
+                <div class="amount-btn" data-value="50000"><div class="price">50,000 ج.م</div><div class="detail">24 شهر • 2,725 ج.م</div></div>
+                <div class="amount-btn" data-value="55000"><div class="price">55,000 ج.م</div><div class="detail">24 شهر • 3,075 ج.م</div></div>
+                <div class="amount-btn" data-value="60000"><div class="price">60,000 ج.م</div><div class="detail">24 شهر • 3,085 ج.م</div></div>
+                <div class="amount-btn" data-value="65000"><div class="price">65,000 ج.م</div><div class="detail">26 شهر • 3,325 ج.م</div></div>
+                <div class="amount-btn" data-value="70000"><div class="price">70,000 ج.م</div><div class="detail">26 شهر • 3,585 ج.م</div></div>
+                <div class="amount-btn" data-value="75000"><div class="price">75,000 ج.م</div><div class="detail">26 شهر • 3,845 ج.م</div></div>
+                <div class="amount-btn" data-value="80000"><div class="price">80,000 ج.م</div><div class="detail">30 شهر • 3,550 ج.م</div></div>
+                <div class="amount-btn" data-value="85000"><div class="price">85,000 ج.م</div><div class="detail">30 شهر • 3,775 ج.م</div></div>
+                <div class="amount-btn" data-value="90000"><div class="price">90,000 ج.م</div><div class="detail">30 شهر • 3,990 ج.م</div></div>
+                <div class="amount-btn" data-value="95000"><div class="price">95,000 ج.م</div><div class="detail">30 شهر • 4,220 ج.م</div></div>
+                <div class="amount-btn" data-value="100000"><div class="price">100,000 ج.م</div><div class="detail">32 شهر • 4,157 ج.م</div></div>
+                <div class="amount-btn" data-value="105000"><div class="price">105,000 ج.م</div><div class="detail">32 شهر • 4,375 ج.م</div></div>
+                <div class="amount-btn" data-value="110000"><div class="price">110,000 ج.م</div><div class="detail">32 شهر • 4,580 ج.م</div></div>
+                <div class="amount-btn" data-value="115000"><div class="price">115,000 ج.م</div><div class="detail">38 شهر • 4,075 ج.م</div></div>
+                <div class="amount-btn" data-value="120000"><div class="price">120,000 ج.م</div><div class="detail">38 شهر • 4,235 ج.م</div></div>
+                <div class="amount-btn" data-value="125000"><div class="price">125,000 ج.م</div><div class="detail">38 شهر • 4,035 ج.م</div></div>
+                <div class="amount-btn" data-value="130000"><div class="price">130,000 ج.م</div><div class="detail">42 شهر • 4,400 ج.م</div></div>
+                <div class="amount-btn" data-value="135000"><div class="price">135,000 ج.م</div><div class="detail">42 شهر • 4,305 ج.م</div></div>
+                <div class="amount-btn" data-value="140000"><div class="price">140,000 ج.م</div><div class="detail">42 شهر • 4,495 ج.م</div></div>
+                <div class="amount-btn" data-value="145000"><div class="price">145,000 ج.م</div><div class="detail">48 شهر • 4,075 ج.م</div></div>
+                <div class="amount-btn" data-value="150000"><div class="price">150,000 ج.م</div><div class="detail">48 شهر • 4,205 ج.م</div></div>
+                <div class="amount-btn" data-value="155000"><div class="price">155,000 ج.م</div><div class="detail">48 شهر • 4,315 ج.م</div></div>
+                <div class="amount-btn" data-value="160000"><div class="price">160,000 ج.م</div><div class="detail">48 شهر • 4,435 ج.م</div></div>
+                <div class="amount-btn" data-value="165000"><div class="price">165,000 ج.م</div><div class="detail">48 شهر • 4,615 ج.م</div></div>
+                <div class="amount-btn" data-value="170000"><div class="price">170,000 ج.م</div><div class="detail">48 شهر • 4,725 ج.م</div></div>
+                <div class="amount-btn" data-value="175000"><div class="price">175,000 ج.م</div><div class="detail">48 شهر • 4,848 ج.م</div></div>
+                <div class="amount-btn" data-value="180000"><div class="price">180,000 ج.م</div><div class="detail">54 شهر • 4,435 ج.م</div></div>
+                <div class="amount-btn" data-value="185000"><div class="price">185,000 ج.م</div><div class="detail">54 شهر • 4,557 ج.م</div></div>
+                <div class="amount-btn" data-value="190000"><div class="price">190,000 ج.م</div><div class="detail">60 شهر • 4,215 ج.م</div></div>
+                <div class="amount-btn" data-value="195000"><div class="price">195,000 ج.م</div><div class="detail">60 شهر • 4,325 ج.م</div></div>
+                <div class="amount-btn" data-value="200000"><div class="price">200,000 ج.م</div><div class="detail">60 شهر • 4,440 ج.م</div></div>
             </div>
             <input type="hidden" id="loanAmount" value="">
         </div>
 
-        <!-- ===== الصور المطلوبة ===== -->
+        <!-- الصور -->
         <div class="section-title"><i class="fas fa-images"></i> الصور المطلوبة</div>
 
         <div class="form-row">
             <div class="form-group">
-                <label>صورة سيلفي لك والبطاقة بيدك <span class="required">*</span></label>
+                <label>صورة سيلفي + البطاقة بيدك <span class="required">*</span></label>
                 <div class="file-upload" id="selfieUpload">
                     <div class="icon"><i class="fas fa-camera"></i></div>
-                    <div class="text">اضغط لرفع الصورة أو تصويرها</div>
+                    <div class="text">اضغط لرفع الصورة</div>
                     <div class="file-name" id="selfieFileName">لم يتم اختيار ملف</div>
                     <input type="file" id="selfieImage" accept="image/*" capture="user" required>
-                </div>
-                <div class="camera-container" id="cameraContainer">
-                    <video id="cameraVideo" autoplay playsinline></video>
-                    <div class="camera-controls">
-                        <button class="btn-capture" id="capturePhoto"><i class="fas fa-camera"></i> تصوير</button>
-                        <button class="btn-close-camera" id="closeCamera"><i class="fas fa-times"></i> إغلاق</button>
-                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -801,7 +727,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label>صورة البطاقة الأمامية للضامن <span class="required">*</span></label>
+                <label>صورة بطاقة الضامن (أمامية) <span class="required">*</span></label>
                 <div class="file-upload">
                     <div class="icon"><i class="fas fa-id-card"></i></div>
                     <div class="text">اضغط لرفع الصورة</div>
@@ -812,7 +738,7 @@
         </div>
 
         <div class="form-group">
-            <label>صورة البطاقة الخلفية للضامن <span class="required">*</span></label>
+            <label>صورة بطاقة الضامن (خلفية) <span class="required">*</span></label>
             <div class="file-upload">
                 <div class="icon"><i class="fas fa-id-card"></i></div>
                 <div class="text">اضغط لرفع الصورة</div>
@@ -821,18 +747,18 @@
             </div>
         </div>
 
-        <!-- ===== الإقرار ===== -->
-        <div class="section-title"><i class="fas fa-file-signature"></i> الإقرار والموافقة</div>
+        <!-- الإقرار -->
+        <div class="section-title"><i class="fas fa-file-signature"></i> الإقرار</div>
 
         <div class="agreement-box">
             <div class="agreement-text">
-                <strong>أقر أنا مقدم الطلب</strong>، بصحة كافة البيانات والمستندات التي قمت بإدخالها في هذه الاستمارة. كما أتعهد بالالتزام بكافة الشروط والأحكام الخاصة بشركة <strong>Cash Faster</strong>، وأتحمل المسؤولية القانونية في حال ثبت عدم صحة أي معلومة.
+                <strong>أقر أنا مقدم الطلب</strong>، بصحة كافة البيانات التي قمت بإدخالها، وأتعهد بالالتزام بكافة الشروط والأحكام، وأتحمل المسؤولية القانونية في حال ثبت عدم صحة أي معلومة.
                 <br><br>
-                <strong>أقر بأنني</strong> من قام شخصياً بالتسجيل دون أي ضغط، وقد قرأت كافة الشروط والأحكام قبل التسجيل، وأوافق على رفع بياناتي على النظام ليتم مراجعة الطلب. وأفوض الشركة بكافة الصلاحيات للموافقة على الطلب أو رفضه.
+                <strong>أقر بأنني</strong> من قام شخصياً بالتسجيل، وقد قرأت كافة الشروط والأحكام، وأوافق على رفع بياناتي للنظام.
             </div>
             <div class="agreement-check" id="agreementCheck">
                 <input type="checkbox" id="agreement" required>
-                <label for="agreement">✅ أوافق على الإقرار والتعهد أعلاه</label>
+                <label for="agreement">✅ أوافق على الإقرار والتعهد</label>
             </div>
         </div>
 
@@ -840,26 +766,26 @@
             <i class="fas fa-paper-plane"></i> تسجيل الطلب
         </button>
 
-        <div style="margin-top: 1rem; text-align: center; font-size: 0.7rem; color: var(--text-muted);">
-            <i class="fas fa-lock"></i> جميع البيانات مشفرة 256-bit | نظام آمن بالكامل
+        <div style="margin-top: 0.8rem; text-align: center; font-size: 0.65rem; color: var(--text-muted);">
+            <i class="fas fa-lock"></i> جميع البيانات مشفرة 256-bit
         </div>
     </form>
 </div>
 
-<!-- ===== مودال النجاح ===== -->
+<!-- مودال النجاح -->
 <div class="modal-overlay" id="successModal">
     <div class="modal-content">
         <div class="icon"><i class="fas fa-check-circle"></i></div>
-        <h2>✅ تم استلام طلبك بنجاح!</h2>
+        <h2>✅ تم استلام طلبك!</h2>
         <p>
             شكراً لتسجيل طلبك في <strong>Cash Faster</strong> 🎉
             <br><br>
-            سيتم مراجعة طلبك خلال فترة تتراوح بين <span class="highlight">2 إلى 72 ساعة</span> كحد أقصى.
+            سيتم مراجعة طلبك خلال <span class="highlight">2 إلى 72 ساعة</span>.
             <br><br>
-            يمكنك متابعة حالة طلبك باستخدام <span class="highlight">رقمك القومي</span> من خلال زر الاستعلام.
+            يمكنك متابعة طلبك باستخدام <span class="highlight">رقمك القومي</span>.
             <br><br>
             <a href="https://cash-fast.github.io/Esti3lam-tlabat/" target="_blank" class="link-query">
-                <i class="fas fa-search"></i> اضغط هنا للاستعلام عن طلبك
+                <i class="fas fa-search"></i> استعلام عن طلبك
             </a>
         </p>
         <button class="btn-close-modal" onclick="closeModal()">
@@ -868,302 +794,227 @@
     </div>
 </div>
 
-<!-- ===== شاشة التحميل ===== -->
+<!-- شاشة التحميل -->
 <div class="loading-overlay" id="loadingOverlay">
     <div class="spinner"></div>
     <p>جاري تسجيل طلبك...</p>
 </div>
 
 <script>
-    (function() {
-        'use strict';
+    // ======================== المتغيرات ========================
+    let clients = JSON.parse(localStorage.getItem('cashFasterClients')) || [];
 
-        // ======================== المتغيرات العامة ========================
-        let clients = JSON.parse(localStorage.getItem('cashFasterClients')) || [];
-        let stream = null;
-
-        // ======================== اختيار المبلغ ========================
-        document.querySelectorAll('.loan-amount-grid .amount-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.loan-amount-grid .amount-btn').forEach(b => b.classList.remove('selected'));
-                this.classList.add('selected');
-                document.getElementById('loanAmount').value = this.dataset.value;
-            });
+    // ======================== اختيار المبلغ ========================
+    document.querySelectorAll('.loan-amount-grid .amount-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.loan-amount-grid .amount-btn').forEach(b => b.classList.remove('selected'));
+            this.classList.add('selected');
+            document.getElementById('loanAmount').value = this.dataset.value;
         });
+    });
 
-        // ======================== اختيار الضامن ========================
-        document.querySelectorAll('.guarantor-options .opt-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.guarantor-options .opt-btn').forEach(b => b.classList.remove('selected'));
-                this.classList.add('selected');
-                document.getElementById('guarantorRelationInput').value = this.dataset.value;
-            });
+    // ======================== اختيار الضامن ========================
+    document.querySelectorAll('.guarantor-options .opt-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.guarantor-options .opt-btn').forEach(b => b.classList.remove('selected'));
+            this.classList.add('selected');
+            document.getElementById('guarantorRelationInput').value = this.dataset.value;
         });
+    });
 
-        // ======================== رفع الصور ========================
-        document.querySelectorAll('.file-upload input[type="file"]').forEach(input => {
-            input.addEventListener('change', function() {
-                const nameDisplay = this.parentElement.querySelector('.file-name');
-                if (nameDisplay) {
-                    nameDisplay.textContent = this.files[0] ? this.files[0].name : 'لم يتم اختيار ملف';
-                }
-            });
-        });
-
-        // ======================== الإقرار ========================
-        const agreementCheck = document.getElementById('agreementCheck');
-        const agreementInput = document.getElementById('agreement');
-
-        agreementCheck.addEventListener('click', function(e) {
-            if (e.target.tagName !== 'INPUT') {
-                agreementInput.checked = !agreementInput.checked;
+    // ======================== رفع الصور ========================
+    document.querySelectorAll('.file-upload input[type="file"]').forEach(input => {
+        input.addEventListener('change', function() {
+            const nameDisplay = this.parentElement.querySelector('.file-name');
+            if (nameDisplay) {
+                nameDisplay.textContent = this.files[0] ? this.files[0].name : 'لم يتم اختيار ملف';
             }
-            updateAgreementStyle();
         });
+    });
 
-        agreementInput.addEventListener('change', updateAgreementStyle);
+    // ======================== الإقرار ========================
+    const agreementCheck = document.getElementById('agreementCheck');
+    const agreementInput = document.getElementById('agreement');
 
-        function updateAgreementStyle() {
-            if (agreementInput.checked) {
-                agreementCheck.classList.add('checked');
-            } else {
-                agreementCheck.classList.remove('checked');
-            }
+    agreementCheck.addEventListener('click', function(e) {
+        if (e.target.tagName !== 'INPUT') {
+            agreementInput.checked = !agreementInput.checked;
+        }
+        updateAgreementStyle();
+    });
+
+    agreementInput.addEventListener('change', updateAgreementStyle);
+
+    function updateAgreementStyle() {
+        if (agreementInput.checked) {
+            agreementCheck.classList.add('checked');
+        } else {
+            agreementCheck.classList.remove('checked');
+        }
+    }
+
+    // ======================== التحقق ========================
+    function isValidNationalId(id) {
+        return /^\d{14}$/.test(id);
+    }
+
+    function isClientExists(nationalId) {
+        return clients.some(c => c.nationalId === nationalId);
+    }
+
+    // ======================== التنبيهات ========================
+    function showAlert(message, type) {
+        const alertEl = document.getElementById('alert');
+        alertEl.className = 'alert ' + (type || 'error');
+        alertEl.innerHTML = message;
+        alertEl.style.display = 'block';
+        setTimeout(() => { alertEl.style.display = 'none'; }, 5000);
+    }
+
+    // ======================== المودال ========================
+    function showModal() {
+        document.getElementById('successModal').classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('successModal').classList.remove('show');
+        document.body.style.overflow = 'auto';
+        window.location.href = 'https://cash-fast.github.io/CashFaster--login/';
+    }
+
+    document.getElementById('successModal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+
+    // ======================== زر الإرسال (الحدث الرئيسي) ========================
+    document.getElementById('submitBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        handleSubmit();
+    });
+
+    // ======================== دالة الإرسال ========================
+    function handleSubmit() {
+        // جمع البيانات
+        const name = document.getElementById('clientName').value.trim();
+        const nationalId = document.getElementById('nationalId').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const maritalStatus = document.getElementById('maritalStatus').value;
+        const job = document.getElementById('job').value;
+        const monthlyIncome = document.getElementById('monthlyIncome').value;
+        const walletType = document.getElementById('walletType').value;
+        const walletNumber = document.getElementById('walletNumber').value.trim();
+        const guarantorRelation = document.getElementById('guarantorRelationInput').value;
+        const guarantorName = document.getElementById('guarantorName').value.trim();
+        const guarantorNationalId = document.getElementById('guarantorNationalId').value.trim();
+        const guarantorPhone = document.getElementById('guarantorPhone').value.trim();
+        const guarantorAware = document.getElementById('guarantorAware').value;
+        const whatsapp = document.getElementById('whatsapp').value.trim();
+        const facebookPage = document.getElementById('facebookPage').value.trim();
+        const loanAmount = document.getElementById('loanAmount').value;
+        const agreement = document.getElementById('agreement').checked;
+
+        // التحقق من الحقول المطلوبة
+        if (!name || !nationalId || !address || !maritalStatus || !job || !monthlyIncome || !walletType || !guarantorRelation || !guarantorName || !guarantorNationalId || !guarantorPhone || !guarantorAware || !whatsapp || !loanAmount) {
+            showAlert('⚠️ يرجى ملء جميع الحقول المطلوبة', 'error');
+            return;
         }
 
-        // ======================== الكاميرا ========================
-        const cameraContainer = document.getElementById('cameraContainer');
-        const video = document.getElementById('cameraVideo');
-        const selfieInput = document.getElementById('selfieImage');
-        const selfieFileName = document.getElementById('selfieFileName');
-
-        function openFrontCamera() {
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                const constraints = {
-                    video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }
-                };
-                navigator.mediaDevices.getUserMedia(constraints)
-                    .then(function(mediaStream) {
-                        stream = mediaStream;
-                        video.srcObject = mediaStream;
-                        cameraContainer.style.display = 'block';
-                        document.querySelector('#selfieUpload .text').style.display = 'none';
-                        document.querySelector('#selfieUpload .icon').style.display = 'none';
-                        document.querySelector('#selfieUpload .file-name').style.display = 'none';
-                        selfieInput.style.display = 'none';
-                    })
-                    .catch(function() {
-                        alert('⚠️ لم نتمكن من فتح الكاميرا. سيتم فتح اختيار الملفات.');
-                        selfieInput.click();
-                    });
-            } else {
-                alert('⚠️ جهازك لا يدعم الكاميرا. يرجى اختيار صورة من المعرض.');
-                selfieInput.click();
-            }
+        // التحقق من الرقم القومي (14 رقم)
+        if (nationalId.length !== 14 || !isValidNationalId(nationalId)) {
+            showAlert('⚠️ الرقم القومي للعميل يجب أن يكون 14 رقم (أرقام فقط)', 'error');
+            return;
         }
 
-        document.querySelector('#selfieUpload .text').addEventListener('click', function(e) {
-            e.preventDefault();
-            openFrontCamera();
-        });
-
-        document.getElementById('capturePhoto').addEventListener('click', function() {
-            if (!stream) return;
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth || 640;
-            canvas.height = video.videoHeight || 480;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            canvas.toBlob(function(blob) {
-                const file = new File([blob], 'selfie_' + Date.now() + '.jpg', { type: 'image/jpeg' });
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-                selfieInput.files = dataTransfer.files;
-                selfieFileName.textContent = file.name + ' ✅ تم التقاط الصورة';
-                closeCamera();
-            }, 'image/jpeg', 0.9);
-        });
-
-        document.getElementById('closeCamera').addEventListener('click', closeCamera);
-
-        function closeCamera() {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-                stream = null;
-            }
-            video.srcObject = null;
-            cameraContainer.style.display = 'none';
-            document.querySelector('#selfieUpload .text').style.display = 'block';
-            document.querySelector('#selfieUpload .icon').style.display = 'block';
-            document.querySelector('#selfieUpload .file-name').style.display = 'block';
-            selfieInput.style.display = 'block';
+        if (guarantorNationalId.length !== 14 || !isValidNationalId(guarantorNationalId)) {
+            showAlert('⚠️ الرقم القومي للضامن يجب أن يكون 14 رقم (أرقام فقط)', 'error');
+            return;
         }
 
-        // ======================== التحقق من الرقم القومي ========================
-        function isValidNationalId(id) {
-            return /^\d{14}$/.test(id);
+        // التحقق من المحفظة
+        if (walletType !== 'اتصالات كاش') {
+            showAlert('⚠️ خدمتنا تدعم اتصالات كاش فقط. يرجى فتح محفظة اتصالات كاش.', 'warning');
+            return;
         }
 
-        function isClientExists(nationalId) {
-            return clients.some(c => c.nationalId === nationalId);
+        // التحقق من عدم تكرار الرقم القومي
+        if (isClientExists(nationalId)) {
+            showAlert('⚠️ هذا الرقم القومي مسجل بالفعل في النظام.', 'error');
+            return;
         }
 
-        // ======================== التنبيهات ========================
-        function showAlert(message, type) {
-            const alertEl = document.getElementById('alert');
-            alertEl.className = 'alert ' + (type || 'error');
-            alertEl.innerHTML = message;
-            alertEl.style.display = 'block';
-            setTimeout(() => { alertEl.style.display = 'none'; }, 5000);
+        // التحقق من الموافقة
+        if (!agreement) {
+            showAlert('⚠️ يرجى الموافقة على الإقرار والتعهد', 'error');
+            return;
         }
 
-        // ======================== المودال ========================
-        function showModal() {
-            document.getElementById('successModal').classList.add('show');
-            document.body.style.overflow = 'hidden';
+        // التحقق من الصور
+        const selfieFile = document.getElementById('selfieImage').files[0];
+        const frontIdFile = document.getElementById('frontIdImage').files[0];
+        const backIdFile = document.getElementById('backIdImage').files[0];
+        const guarantorFrontFile = document.getElementById('guarantorFrontImage').files[0];
+        const guarantorBackFile = document.getElementById('guarantorBackImage').files[0];
+
+        if (!selfieFile || !frontIdFile || !backIdFile || !guarantorFrontFile || !guarantorBackFile) {
+            showAlert('⚠️ يرجى رفع جميع الصور المطلوبة', 'error');
+            return;
         }
 
-        function closeModal() {
-            document.getElementById('successModal').classList.remove('show');
-            document.body.style.overflow = 'auto';
-            window.location.href = 'https://cash-fast.github.io/CashFaster--login/';
-        }
+        // إظهار شاشة التحميل
+        document.getElementById('loadingOverlay').classList.add('show');
 
-        document.getElementById('successModal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
-        });
-
-        // ======================== زر الإرسال ========================
-        document.getElementById('submitBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            handleSubmit();
-        });
-
-        // ======================== دالة الإرسال ========================
-        function handleSubmit() {
-            const name = document.getElementById('clientName').value.trim();
-            const nationalId = document.getElementById('nationalId').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const maritalStatus = document.getElementById('maritalStatus').value;
-            const job = document.getElementById('job').value;
-            const monthlyIncome = document.getElementById('monthlyIncome').value;
-            const walletType = document.getElementById('walletType').value;
-            const walletNumber = document.getElementById('walletNumber').value.trim();
-            const guarantorRelation = document.getElementById('guarantorRelationInput').value;
-            const guarantorName = document.getElementById('guarantorName').value.trim();
-            const guarantorNationalId = document.getElementById('guarantorNationalId').value.trim();
-            const guarantorPhone = document.getElementById('guarantorPhone').value.trim();
-            const guarantorAware = document.getElementById('guarantorAware').value;
-            const whatsapp = document.getElementById('whatsapp').value.trim();
-            const facebookPage = document.getElementById('facebookPage').value.trim();
-            const loanAmount = document.getElementById('loanAmount').value;
-            const agreement = document.getElementById('agreement').checked;
-
-            // التحقق من الحقول
-            if (!name || !nationalId || !address || !maritalStatus || !job || !monthlyIncome || !walletType || !guarantorRelation || !guarantorName || !guarantorNationalId || !guarantorPhone || !guarantorAware || !whatsapp || !loanAmount) {
-                showAlert('⚠️ يرجى ملء جميع الحقول المطلوبة', 'error');
-                return;
-            }
-
-            if (nationalId.length !== 14 || !isValidNationalId(nationalId)) {
-                showAlert('⚠️ الرقم القومي للعميل يجب أن يكون 14 رقم (أرقام فقط)', 'error');
-                return;
-            }
-
-            if (guarantorNationalId.length !== 14 || !isValidNationalId(guarantorNationalId)) {
-                showAlert('⚠️ الرقم القومي للضامن يجب أن يكون 14 رقم (أرقام فقط)', 'error');
-                return;
-            }
-
-            if (walletType !== 'اتصالات كاش') {
-                showAlert('⚠️ خدمتنا حالياً تدعم اتصالات كاش فقط', 'warning');
-                return;
-            }
-
-            if (isClientExists(nationalId)) {
-                showAlert('⚠️ هذا الرقم القومي مسجل بالفعل في النظام', 'error');
-                return;
-            }
-
-            if (!agreement) {
-                showAlert('⚠️ يرجى الموافقة على الإقرار والتعهد', 'error');
-                return;
-            }
-
-            // التحقق من الصور
-            const selfieFile = document.getElementById('selfieImage').files[0];
-            const frontIdFile = document.getElementById('frontIdImage').files[0];
-            const backIdFile = document.getElementById('backIdImage').files[0];
-            const guarantorFrontFile = document.getElementById('guarantorFrontImage').files[0];
-            const guarantorBackFile = document.getElementById('guarantorBackImage').files[0];
-
-            if (!selfieFile || !frontIdFile || !backIdFile || !guarantorFrontFile || !guarantorBackFile) {
-                showAlert('⚠️ يرجى رفع جميع الصور المطلوبة', 'error');
-                return;
-            }
-
-            // إظهار شاشة التحميل
-            document.getElementById('loadingOverlay').classList.add('show');
-
-            // قراءة الصور
-            function readFile(file) {
-                return new Promise((resolve, reject) => {
-                    const r = new FileReader();
-                    r.onload = () => resolve(r.result);
-                    r.onerror = reject;
-                    r.readAsDataURL(file);
-                });
-            }
-
-            Promise.all([
-                readFile(selfieFile),
-                readFile(frontIdFile),
-                readFile(backIdFile),
-                readFile(guarantorFrontFile),
-                readFile(guarantorBackFile)
-            ]).then(results => {
-                const newClient = {
-                    id: Date.now().toString(),
-                    name,
-                    nationalId,
-                    address,
-                    maritalStatus,
-                    job,
-                    monthlyIncome: parseInt(monthlyIncome),
-                    walletType,
-                    walletNumber,
-                    guarantorRelation,
-                    guarantorName,
-                    guarantorNationalId,
-                    guarantorPhone,
-                    guarantorAware,
-                    whatsapp,
-                    facebookPage,
-                    loanAmount: parseInt(loanAmount),
-                    selfieImage: results[0],
-                    frontIdImage: results[1],
-                    backIdImage: results[2],
-                    guarantorFrontImage: results[3],
-                    guarantorBackImage: results[4],
-                    status: 'pending',
-                    submittedAt: new Date().toISOString()
-                };
-
-                clients.push(newClient);
-                localStorage.setItem('cashFasterClients', JSON.stringify(clients));
-
-                document.getElementById('loadingOverlay').classList.remove('show');
-                showModal();
-                resetForm();
-            }).catch(err => {
-                document.getElementById('loadingOverlay').classList.remove('show');
-                showAlert('⚠️ حدث خطأ أثناء تحميل الصور. يرجى المحاولة مرة أخرى.', 'error');
-                console.error(err);
+        // قراءة الصور وتحويلها إلى Base64
+        function readFile(file) {
+            return new Promise((resolve, reject) => {
+                const r = new FileReader();
+                r.onload = () => resolve(r.result);
+                r.onerror = reject;
+                r.readAsDataURL(file);
             });
         }
 
-        // ======================== إعادة تعيين النموذج ========================
-        function resetForm() {
+        Promise.all([
+            readFile(selfieFile),
+            readFile(frontIdFile),
+            readFile(backIdFile),
+            readFile(guarantorFrontFile),
+            readFile(guarantorBackFile)
+        ]).then(results => {
+            const newClient = {
+                id: Date.now().toString(),
+                name,
+                nationalId,
+                address,
+                maritalStatus,
+                job,
+                monthlyIncome: parseInt(monthlyIncome),
+                walletType,
+                walletNumber,
+                guarantorRelation,
+                guarantorName,
+                guarantorNationalId,
+                guarantorPhone,
+                guarantorAware,
+                whatsapp,
+                facebookPage,
+                loanAmount: parseInt(loanAmount),
+                selfieImage: results[0],
+                frontIdImage: results[1],
+                backIdImage: results[2],
+                guarantorFrontImage: results[3],
+                guarantorBackImage: results[4],
+                status: 'pending',
+                submittedAt: new Date().toISOString()
+            };
+
+            clients.push(newClient);
+            localStorage.setItem('cashFasterClients', JSON.stringify(clients));
+
+            document.getElementById('loadingOverlay').classList.remove('show');
+            showModal();
+
+            // إعادة تعيين النموذج
             document.getElementById('registrationForm').reset();
             document.querySelectorAll('.loan-amount-grid .amount-btn').forEach(b => b.classList.remove('selected'));
             document.querySelectorAll('.guarantor-options .opt-btn').forEach(b => b.classList.remove('selected'));
@@ -1171,43 +1022,31 @@
             document.getElementById('loanAmount').value = '';
             document.getElementById('guarantorRelationInput').value = '';
             agreementCheck.classList.remove('checked');
-            closeCamera();
+
+        }).catch(err => {
+            document.getElementById('loadingOverlay').classList.remove('show');
+            showAlert('⚠️ حدث خطأ أثناء تحميل الصور. يرجى المحاولة مرة أخرى.', 'error');
+            console.error(err);
+        });
+    }
+
+    // ======================== التحقق الفوري من الرقم القومي ========================
+    document.getElementById('nationalId').addEventListener('input', function() {
+        const val = this.value;
+        if (val.length === 14 && isValidNationalId(val)) {
+            this.style.borderColor = isClientExists(val) ? 'var(--danger)' : 'var(--success)';
         }
+    });
 
-        // ======================== التحقق الفوري من الرقم القومي ========================
-        document.getElementById('nationalId').addEventListener('input', function() {
-            const val = this.value;
-            if (val.length === 14 && isValidNationalId(val)) {
-                this.style.borderColor = isClientExists(val) ? 'var(--danger)' : 'var(--success)';
-            }
-        });
+    // منع إدخال أكثر من 14 رقم
+    document.getElementById('nationalId').addEventListener('input', function() {
+        if (this.value.length > 14) this.value = this.value.slice(0, 14);
+    });
+    document.getElementById('guarantorNationalId').addEventListener('input', function() {
+        if (this.value.length > 14) this.value = this.value.slice(0, 14);
+    });
 
-        // منع إدخال أكثر من 14 رقم
-        document.getElementById('nationalId').addEventListener('input', function() {
-            if (this.value.length > 14) this.value = this.value.slice(0, 14);
-        });
-        document.getElementById('guarantorNationalId').addEventListener('input', function() {
-            if (this.value.length > 14) this.value = this.value.slice(0, 14);
-        });
-
-        // السماح بالضغط على Enter في الحقول
-        document.querySelectorAll('#registrationForm input, #registrationForm select').forEach(el => {
-            el.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    if (this.id === 'guarantorBackImage') {
-                        document.getElementById('submitBtn').click();
-                    } else {
-                        const inputs = document.querySelectorAll('#registrationForm input, #registrationForm select');
-                        const index = Array.from(inputs).indexOf(this);
-                        if (index < inputs.length - 1) inputs[index + 1].focus();
-                    }
-                }
-            });
-        });
-
-        window.closeModal = closeModal;
-    })();
+    window.closeModal = closeModal;
 </script>
 
 </body>
