@@ -78,6 +78,28 @@
             margin-top: 0.5rem;
             box-shadow: 0 0 20px var(--primary-glow);
         }
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 0.8rem;
+        }
+        .nav-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.3rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            background: rgba(0, 217, 255, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
         .form-group {
             margin-bottom: 1.2rem;
         }
@@ -204,6 +226,52 @@
             font-weight: 600;
             margin-top: 0.3rem;
             font-size: 0.85rem;
+        }
+        /* كاميرا السيلفي - تفعيل الكاميرا الأمامية */
+        .camera-container {
+            display: none;
+            position: relative;
+            margin-top: 0.5rem;
+            border-radius: 0.8rem;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+        }
+        .camera-container video {
+            width: 100%;
+            max-height: 300px;
+            background: #000;
+            border-radius: 0.8rem;
+        }
+        .camera-container .camera-controls {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        .camera-container .camera-controls button {
+            padding: 0.4rem 1rem;
+            border: none;
+            border-radius: 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: 0.3s;
+        }
+        .camera-container .camera-controls .btn-capture {
+            background: var(--success);
+            color: #0A0F2A;
+        }
+        .camera-container .camera-controls .btn-capture:hover {
+            box-shadow: 0 0 20px var(--success-glow);
+        }
+        .camera-container .camera-controls .btn-close-camera {
+            background: var(--danger);
+            color: white;
+        }
+        .camera-container .camera-controls .btn-switch-camera {
+            background: var(--primary);
+            color: #0A0F2A;
         }
         .guarantor-options {
             display: flex;
@@ -442,7 +510,6 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        /* تحسينات إضافية للألوان */
         .section-title {
             color: var(--primary);
             font-size: 1.2rem;
@@ -455,19 +522,19 @@
             color: var(--gold);
             margin-left: 0.5rem;
         }
-        .loading-spinner {
-            display: none;
+        /* تنسيق الرقم القومي */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        .number-input {
             text-align: center;
-            margin: 1rem 0;
-        }
-        .loading-spinner i {
-            font-size: 1.5rem;
-            color: var(--primary);
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            letter-spacing: 2px;
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -478,6 +545,11 @@
         <h1>⚡ Cash Faster</h1>
         <p>نموذج تسجيل طلب تمويل جديد</p>
         <div class="badge"><i class="fas fa-lock"></i> بياناتك مشفرة 256-bit</div>
+        <div class="nav-links">
+            <a href="https://cash-fast.github.io/CashFaster--login/" target="_blank"><i class="fas fa-home"></i> الرئيسية</a>
+            <a href="https://cash-fast.github.io/Esti3lam-tlabat/" target="_blank"><i class="fas fa-search"></i> استعلام عن طلب</a>
+            <a href="https://cash-fast.github.io/Rabtwilet/" target="_blank"><i class="fas fa-link"></i> ربط الحساب</a>
+        </div>
     </div>
 
     <!-- تنبيهات -->
@@ -496,8 +568,8 @@
 
         <div class="form-group">
             <label>الرقم القومى <span class="required">*</span></label>
-            <input type="text" id="nationalId" placeholder="14 رقم" maxlength="14" required>
-            <div class="hint">أدخل الرقم القومي المكون من 14 رقم</div>
+            <input type="number" id="nationalId" class="number-input" placeholder="14 رقم" maxlength="14" inputmode="numeric" required>
+            <div class="hint">أدخل الرقم القومي المكون من 14 رقم (أرقام فقط)</div>
         </div>
 
         <div class="form-group">
@@ -559,7 +631,7 @@
 
         <div class="form-group">
             <label>رقم المحفظة المستلمة للقرض</label>
-            <input type="text" id="walletNumber" placeholder="مثال: 01123456789">
+            <input type="tel" id="walletNumber" placeholder="مثال: 01123456789">
         </div>
 
         <!-- 3. بيانات الضامن -->
@@ -588,7 +660,7 @@
         <div class="form-row">
             <div class="form-group">
                 <label>الرقم القومى للضامن <span class="required">*</span></label>
-                <input type="text" id="guarantorNationalId" placeholder="14 رقم" maxlength="14" required>
+                <input type="text" id="guarantorNationalId" class="number-input" placeholder="14 رقم" maxlength="14" inputmode="numeric" required>
             </div>
             <div class="form-group">
                 <label>رقم موبايل الضامن <span class="required">*</span></label>
@@ -624,146 +696,41 @@
         <div class="form-group">
             <label>اختر المبلغ المناسب لك <span class="required">*</span></label>
             <div class="loan-amount-grid" id="loanAmountGrid">
-                <div class="amount-btn" data-value="30000">
-                    <div class="price">30,000 ج.م</div>
-                    <div class="detail">12 شهر • 3,325 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="35000">
-                    <div class="price">35,000 ج.م</div>
-                    <div class="detail">12 شهر • 3,875 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="40000">
-                    <div class="price">40,000 ج.م</div>
-                    <div class="detail">18 شهر • 2,965 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="45000">
-                    <div class="price">45,000 ج.م</div>
-                    <div class="detail">18 شهر • 3,325 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="50000">
-                    <div class="price">50,000 ج.م</div>
-                    <div class="detail">24 شهر • 2,725 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="55000">
-                    <div class="price">55,000 ج.م</div>
-                    <div class="detail">24 شهر • 3,075 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="60000">
-                    <div class="price">60,000 ج.م</div>
-                    <div class="detail">24 شهر • 3,085 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="65000">
-                    <div class="price">65,000 ج.م</div>
-                    <div class="detail">26 شهر • 3,325 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="70000">
-                    <div class="price">70,000 ج.م</div>
-                    <div class="detail">26 شهر • 3,585 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="75000">
-                    <div class="price">75,000 ج.م</div>
-                    <div class="detail">26 شهر • 3,845 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="80000">
-                    <div class="price">80,000 ج.م</div>
-                    <div class="detail">30 شهر • 3,550 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="85000">
-                    <div class="price">85,000 ج.م</div>
-                    <div class="detail">30 شهر • 3,775 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="90000">
-                    <div class="price">90,000 ج.م</div>
-                    <div class="detail">30 شهر • 3,990 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="95000">
-                    <div class="price">95,000 ج.م</div>
-                    <div class="detail">30 شهر • 4,220 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="100000">
-                    <div class="price">100,000 ج.م</div>
-                    <div class="detail">32 شهر • 4,157 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="105000">
-                    <div class="price">105,000 ج.م</div>
-                    <div class="detail">32 شهر • 4,375 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="110000">
-                    <div class="price">110,000 ج.م</div>
-                    <div class="detail">32 شهر • 4,580 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="115000">
-                    <div class="price">115,000 ج.م</div>
-                    <div class="detail">38 شهر • 4,075 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="120000">
-                    <div class="price">120,000 ج.م</div>
-                    <div class="detail">38 شهر • 4,235 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="125000">
-                    <div class="price">125,000 ج.م</div>
-                    <div class="detail">38 شهر • 4,035 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="130000">
-                    <div class="price">130,000 ج.م</div>
-                    <div class="detail">42 شهر • 4,400 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="135000">
-                    <div class="price">135,000 ج.م</div>
-                    <div class="detail">42 شهر • 4,305 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="140000">
-                    <div class="price">140,000 ج.م</div>
-                    <div class="detail">42 شهر • 4,495 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="145000">
-                    <div class="price">145,000 ج.م</div>
-                    <div class="detail">48 شهر • 4,075 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="150000">
-                    <div class="price">150,000 ج.م</div>
-                    <div class="detail">48 شهر • 4,205 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="155000">
-                    <div class="price">155,000 ج.م</div>
-                    <div class="detail">48 شهر • 4,315 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="160000">
-                    <div class="price">160,000 ج.م</div>
-                    <div class="detail">48 شهر • 4,435 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="165000">
-                    <div class="price">165,000 ج.م</div>
-                    <div class="detail">48 شهر • 4,615 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="170000">
-                    <div class="price">170,000 ج.م</div>
-                    <div class="detail">48 شهر • 4,725 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="175000">
-                    <div class="price">175,000 ج.م</div>
-                    <div class="detail">48 شهر • 4,848 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="180000">
-                    <div class="price">180,000 ج.م</div>
-                    <div class="detail">54 شهر • 4,435 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="185000">
-                    <div class="price">185,000 ج.م</div>
-                    <div class="detail">54 شهر • 4,557 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="190000">
-                    <div class="price">190,000 ج.م</div>
-                    <div class="detail">60 شهر • 4,215 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="195000">
-                    <div class="price">195,000 ج.م</div>
-                    <div class="detail">60 شهر • 4,325 ج.م/ش</div>
-                </div>
-                <div class="amount-btn" data-value="200000">
-                    <div class="price">200,000 ج.م</div>
-                    <div class="detail">60 شهر • 4,440 ج.م/ش</div>
-                </div>
+                <div class="amount-btn" data-value="30000"><div class="price">30,000 ج.م</div><div class="detail">12 شهر • 3,325 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="35000"><div class="price">35,000 ج.م</div><div class="detail">12 شهر • 3,875 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="40000"><div class="price">40,000 ج.م</div><div class="detail">18 شهر • 2,965 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="45000"><div class="price">45,000 ج.م</div><div class="detail">18 شهر • 3,325 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="50000"><div class="price">50,000 ج.م</div><div class="detail">24 شهر • 2,725 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="55000"><div class="price">55,000 ج.م</div><div class="detail">24 شهر • 3,075 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="60000"><div class="price">60,000 ج.م</div><div class="detail">24 شهر • 3,085 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="65000"><div class="price">65,000 ج.م</div><div class="detail">26 شهر • 3,325 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="70000"><div class="price">70,000 ج.م</div><div class="detail">26 شهر • 3,585 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="75000"><div class="price">75,000 ج.م</div><div class="detail">26 شهر • 3,845 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="80000"><div class="price">80,000 ج.م</div><div class="detail">30 شهر • 3,550 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="85000"><div class="price">85,000 ج.م</div><div class="detail">30 شهر • 3,775 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="90000"><div class="price">90,000 ج.م</div><div class="detail">30 شهر • 3,990 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="95000"><div class="price">95,000 ج.م</div><div class="detail">30 شهر • 4,220 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="100000"><div class="price">100,000 ج.م</div><div class="detail">32 شهر • 4,157 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="105000"><div class="price">105,000 ج.م</div><div class="detail">32 شهر • 4,375 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="110000"><div class="price">110,000 ج.م</div><div class="detail">32 شهر • 4,580 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="115000"><div class="price">115,000 ج.م</div><div class="detail">38 شهر • 4,075 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="120000"><div class="price">120,000 ج.م</div><div class="detail">38 شهر • 4,235 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="125000"><div class="price">125,000 ج.م</div><div class="detail">38 شهر • 4,035 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="130000"><div class="price">130,000 ج.م</div><div class="detail">42 شهر • 4,400 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="135000"><div class="price">135,000 ج.م</div><div class="detail">42 شهر • 4,305 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="140000"><div class="price">140,000 ج.م</div><div class="detail">42 شهر • 4,495 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="145000"><div class="price">145,000 ج.م</div><div class="detail">48 شهر • 4,075 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="150000"><div class="price">150,000 ج.م</div><div class="detail">48 شهر • 4,205 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="155000"><div class="price">155,000 ج.م</div><div class="detail">48 شهر • 4,315 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="160000"><div class="price">160,000 ج.م</div><div class="detail">48 شهر • 4,435 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="165000"><div class="price">165,000 ج.م</div><div class="detail">48 شهر • 4,615 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="170000"><div class="price">170,000 ج.م</div><div class="detail">48 شهر • 4,725 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="175000"><div class="price">175,000 ج.م</div><div class="detail">48 شهر • 4,848 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="180000"><div class="price">180,000 ج.م</div><div class="detail">54 شهر • 4,435 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="185000"><div class="price">185,000 ج.م</div><div class="detail">54 شهر • 4,557 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="190000"><div class="price">190,000 ج.م</div><div class="detail">60 شهر • 4,215 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="195000"><div class="price">195,000 ج.م</div><div class="detail">60 شهر • 4,325 ج.م/ش</div></div>
+                <div class="amount-btn" data-value="200000"><div class="price">200,000 ج.م</div><div class="detail">60 شهر • 4,440 ج.م/ش</div></div>
             </div>
             <input type="hidden" id="loanAmount" value="">
         </div>
@@ -774,11 +741,18 @@
         <div class="form-row">
             <div class="form-group">
                 <label>صورة سيلفي لك والبطاقة بيدك <span class="required">*</span></label>
-                <div class="file-upload">
+                <div class="file-upload" id="selfieUpload">
                     <div class="icon"><i class="fas fa-camera"></i></div>
-                    <div class="text">اضغط لرفع الصورة</div>
+                    <div class="text">اضغط لرفع الصورة أو تصويرها بالكاميرا الأمامية</div>
                     <div class="file-name" id="selfieFileName">لم يتم اختيار ملف</div>
-                    <input type="file" id="selfieImage" accept="image/*" required>
+                    <input type="file" id="selfieImage" accept="image/*" capture="user" required>
+                </div>
+                <div class="camera-container" id="cameraContainer">
+                    <video id="cameraVideo" autoplay playsinline></video>
+                    <div class="camera-controls">
+                        <button class="btn-capture" id="capturePhoto"><i class="fas fa-camera"></i> تصوير</button>
+                        <button class="btn-close-camera" id="closeCamera"><i class="fas fa-times"></i> إغلاق</button>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -871,16 +845,7 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
-</script>
 <script>
-    // ======================== تهيئة EmailJS ========================
-    (function() {
-        emailjs.init({
-            publicKey: "YOUR_PUBLIC_KEY" // سيتم استبداله بالمفتاح الخاص بك
-        });
-    })();
-
     // ======================== قاعدة بيانات العملاء ========================
     let clients = JSON.parse(localStorage.getItem('cashFasterClients')) || [];
 
@@ -934,6 +899,96 @@
         }
     }
 
+    // ======================== كاميرا السيلفي ========================
+    let stream = null;
+    const cameraContainer = document.getElementById('cameraContainer');
+    const video = document.getElementById('cameraVideo');
+    const selfieInput = document.getElementById('selfieImage');
+    const selfieFileName = document.getElementById('selfieFileName');
+
+    // عند اختيار ملف السيلفي، نفتح الكاميرا الأمامية
+    selfieInput.addEventListener('click', function(e) {
+        // نمنع فتح الملفات العادية ونفتح الكاميرا بدلاً من ذلك
+        e.preventDefault();
+        openFrontCamera();
+    });
+
+    // زر فتح الكاميرا (بديل في حال لم تعمل الـ capture)
+    document.querySelector('#selfieUpload .text').addEventListener('click', function(e) {
+        e.preventDefault();
+        openFrontCamera();
+    });
+
+    function openFrontCamera() {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            const constraints = {
+                video: {
+                    facingMode: 'user',
+                    width: { ideal: 640 },
+                    height: { ideal: 480 }
+                }
+            };
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(function(mediaStream) {
+                    stream = mediaStream;
+                    video.srcObject = mediaStream;
+                    cameraContainer.style.display = 'block';
+                    // إخفاء حقل رفع الملفات العادي
+                    document.querySelector('#selfieUpload .text').style.display = 'none';
+                    document.querySelector('#selfieUpload .icon').style.display = 'none';
+                    document.querySelector('#selfieUpload .file-name').style.display = 'none';
+                    selfieInput.style.display = 'none';
+                })
+                .catch(function(err) {
+                    console.error('خطأ في فتح الكاميرا:', err);
+                    alert('⚠️ لم نتمكن من فتح الكاميرا. يرجى السماح بالوصول إلى الكاميرا أو اختيار صورة من المعرض.');
+                    // في حال فشل الكاميرا، نفتح اختيار الملفات العادي
+                    selfieInput.click();
+                });
+        } else {
+            alert('⚠️ جهازك لا يدعم الكاميرا. يرجى اختيار صورة من المعرض.');
+            selfieInput.click();
+        }
+    }
+
+    // التقاط الصورة من الكاميرا
+    document.getElementById('capturePhoto').addEventListener('click', function() {
+        if (!stream) return;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 480;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob(function(blob) {
+            const file = new File([blob], 'selfie_' + Date.now() + '.jpg', { type: 'image/jpeg' });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            selfieInput.files = dataTransfer.files;
+            selfieFileName.textContent = file.name + ' ✅ تم التقاط الصورة';
+
+            // إغلاق الكاميرا بعد التقاط الصورة
+            closeCamera();
+        }, 'image/jpeg', 0.9);
+    });
+
+    // إغلاق الكاميرا
+    document.getElementById('closeCamera').addEventListener('click', closeCamera);
+
+    function closeCamera() {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+            stream = null;
+        }
+        video.srcObject = null;
+        cameraContainer.style.display = 'none';
+        document.querySelector('#selfieUpload .text').style.display = 'block';
+        document.querySelector('#selfieUpload .icon').style.display = 'block';
+        document.querySelector('#selfieUpload .file-name').style.display = 'block';
+        selfieInput.style.display = 'block';
+    }
+
     // ======================== التحقق من الرقم القومي ========================
     function isValidNationalId(id) {
         return /^\d{14}$/.test(id);
@@ -972,34 +1027,6 @@
         }
     });
 
-    // ======================== إرسال إشعار البريد الإلكتروني ========================
-    function sendEmailNotification(clientData) {
-        // استخدام خدمة EmailJS
-        const templateParams = {
-            to_email: 'caf4705@gmail.com',
-            client_name: clientData.name,
-            client_national_id: clientData.nationalId,
-            client_address: clientData.address,
-            client_marital_status: clientData.maritalStatus,
-            client_job: clientData.job,
-            client_monthly_income: clientData.monthlyIncome,
-            client_wallet_type: clientData.walletType,
-            client_wallet_number: clientData.walletNumber || 'غير مسجل',
-            client_guarantor_relation: clientData.guarantorRelation,
-            client_guarantor_name: clientData.guarantorName,
-            client_guarantor_national_id: clientData.guarantorNationalId,
-            client_guarantor_phone: clientData.guarantorPhone,
-            client_guarantor_aware: clientData.guarantorAware,
-            client_whatsapp: clientData.whatsapp,
-            client_facebook: clientData.facebookPage || 'غير مسجل',
-            client_loan_amount: clientData.loanAmount,
-            client_submitted_at: new Date(clientData.submittedAt).toLocaleString('ar-EG'),
-            client_status: 'قيد المراجعة'
-        };
-
-        return emailjs.send('service_cashfaster', 'template_new_client', templateParams);
-    }
-
     // ======================== تسجيل العميل ========================
     document.getElementById('registrationForm').addEventListener('submit', function(e) {
         e.preventDefault();
@@ -1022,19 +1049,18 @@
         const loanAmount = document.getElementById('loanAmount').value;
         const agreement = document.getElementById('agreement').checked;
 
-        // التحقق من الحقول المطلوبة
         if (!name || !nationalId || !address || !maritalStatus || !job || !monthlyIncome || !walletType || !guarantorRelation || !guarantorName || !guarantorNationalId || !guarantorPhone || !guarantorAware || !whatsapp || !loanAmount) {
             showAlert('⚠️ يرجى ملء جميع الحقول المطلوبة', 'error');
             return;
         }
 
-        if (!isValidNationalId(nationalId)) {
-            showAlert('⚠️ الرقم القومي للعميل يجب أن يكون 14 رقم', 'error');
+        if (nationalId.length !== 14 || !isValidNationalId(nationalId)) {
+            showAlert('⚠️ الرقم القومي للعميل يجب أن يكون 14 رقم (أرقام فقط)', 'error');
             return;
         }
 
-        if (!isValidNationalId(guarantorNationalId)) {
-            showAlert('⚠️ الرقم القومي للضامن يجب أن يكون 14 رقم', 'error');
+        if (guarantorNationalId.length !== 14 || !isValidNationalId(guarantorNationalId)) {
+            showAlert('⚠️ الرقم القومي للضامن يجب أن يكون 14 رقم (أرقام فقط)', 'error');
             return;
         }
 
@@ -1110,13 +1136,6 @@
             clients.push(newClient);
             localStorage.setItem('cashFasterClients', JSON.stringify(clients));
 
-            // إرسال إشعار البريد الإلكتروني
-            sendEmailNotification(newClient).then(() => {
-                console.log('✅ تم إرسال إشعار البريد بنجاح');
-            }).catch(err => {
-                console.warn('⚠️ فشل إرسال البريد:', err);
-            });
-
             showModal();
             this.reset();
             document.querySelectorAll('.loan-amount-grid .amount-btn').forEach(b => b.classList.remove('selected'));
@@ -1125,6 +1144,8 @@
             document.getElementById('loanAmount').value = '';
             document.getElementById('guarantorRelationInput').value = '';
             agreementCheck.classList.remove('checked');
+            // إعادة تعيين الكاميرا
+            closeCamera();
 
         }).catch(err => {
             showAlert('⚠️ حدث خطأ أثناء تحميل الصور. يرجى المحاولة مرة أخرى.', 'error');
@@ -1132,13 +1153,27 @@
         });
     });
 
+    // ======================== التحقق من الرقم القومي أثناء الكتابة ========================
     document.getElementById('nationalId').addEventListener('input', function() {
-        if (this.value.length === 14 && isValidNationalId(this.value)) {
-            if (isClientExists(this.value)) {
+        const val = this.value;
+        if (val.length === 14 && isValidNationalId(val)) {
+            if (isClientExists(val)) {
                 this.style.borderColor = 'var(--danger)';
             } else {
                 this.style.borderColor = 'var(--success)';
             }
+        }
+    });
+
+    // منع إدخال أكثر من 14 رقم
+    document.getElementById('nationalId').addEventListener('keypress', function(e) {
+        if (this.value.length >= 14) {
+            e.preventDefault();
+        }
+    });
+    document.getElementById('guarantorNationalId').addEventListener('keypress', function(e) {
+        if (this.value.length >= 14) {
+            e.preventDefault();
         }
     });
 </script>
