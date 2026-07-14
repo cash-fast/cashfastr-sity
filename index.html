@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>كاش فاستر | ربط المحفظة الذكي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-neon: #00F0FF;
+            --primary-deep: #8A2BE2;
+            --accent-gold: #FFD966;
+            --accent-green: #39FF14;
+            --bg-dark: #0B0E1A;
+            --bg-glass: rgba(20, 28, 45, 0.85);
+            --text-light: #FFFFFF;
+            --text-muted: #C0C8E0;
+            --border-glow: 0 0 12px rgba(0, 240, 255, 0.4);
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: radial-gradient(circle at 20% 30%, #0C1122, #020617);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 240, 255, 0.08) 1px, transparent 1px);
+            background-size: 45px 45px;
+            pointer-events: none;
+            animation: drift 25s linear infinite;
+            z-index: 0;
+        }
+        @keyframes drift { 0% { transform: translate(0,0); } 100% { transform: translate(45px,45px); } }
+        .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; position: relative; z-index: 2; }
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            background: rgba(11, 18, 35, 0.7);
+            backdrop-filter: blur(18px);
+            border-radius: 2rem;
+            padding: 1rem;
+            border: 1px solid var(--primary-neon);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
+        }
+        .logo h1 { font-size: 2.4rem; background: linear-gradient(135deg, #FFF, var(--primary-neon), var(--primary-deep)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+        .logo-sub { color: var(--accent-gold); font-size: 0.85rem; margin-top: 0.4rem; }
+        .security-badge { display: inline-block; background: rgba(0, 240, 255, 0.2); border: 1px solid var(--primary-neon); color: var(--primary-neon); border-radius: 2rem; padding: 0.3rem 1.2rem; font-size: 0.7rem; font-weight: 700; margin-top: 0.8rem; }
+        .search-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            border-radius: 2rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 240, 255, 0.5);
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        .search-title { font-size: 1.7rem; text-align: center; color: var(--primary-neon); margin-bottom: 0.5rem; }
+        .search-description { text-align: center; color: var(--text-muted); margin-bottom: 1.5rem; }
+        .input-group { max-width: 450px; margin: 0 auto; }
+        .input-group input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0,0,0,0.6);
+            border: 2px solid var(--primary-neon);
+            border-radius: 3rem;
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            transition: 0.2s;
+        }
+        .input-group input:focus { border-color: var(--accent-gold); box-shadow: 0 0 20px var(--primary-neon); outline: none; }
+        .btn-search {
+            background: linear-gradient(95deg, var(--primary-neon), var(--primary-deep));
+            border: none;
+            padding: 0.9rem;
+            border-radius: 3rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 1.2rem;
+            width: 100%;
+            max-width: 280px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: 0.2s;
+            box-shadow: 0 0 12px var(--primary-neon);
+            cursor: pointer;
+            color: white;
+        }
+        .btn-search:hover { transform: translateY(-3px); box-shadow: 0 0 25px var(--primary-neon); }
+        .result-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            border-radius: 2rem;
+            padding: 2rem;
+            border: 1px solid rgba(0, 240, 255, 0.5);
+            display: none;
+            animation: slideUp 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .result-card.show { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .success-header {
+            background: rgba(57, 255, 20, 0.12);
+            border: 1px solid var(--accent-green);
+            border-radius: 2rem;
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .loan-highlight {
+            background: linear-gradient(145deg, #1A2A2F, #0C1A1F);
+            border-radius: 2rem;
+            padding: 1.2rem;
+            text-align: center;
+            border: 2px solid var(--accent-gold);
+            margin: 1rem 0;
+            box-shadow: 0 0 20px rgba(255, 217, 102, 0.3);
+        }
+        .loan-amount { font-size: 2.3rem; font-weight: 800; color: var(--accent-gold); text-shadow: 0 0 8px gold; }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .info-card {
+            background: rgba(0,0,0,0.45);
+            border-radius: 1.2rem;
+            padding: 1rem;
+            border-right: 4px solid var(--primary-neon);
+        }
+        .info-card h3 {
+            color: var(--primary-neon);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .info-table tr { border-bottom: 1px solid rgba(0, 240, 255, 0.15); }
+        .info-table td { padding: 0.6rem; font-size: 0.9rem; }
+        .info-table td:first-child { font-weight: 700; color: var(--primary-neon); width: 40%; }
+        .linking-instructions {
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            border-radius: 1.8rem;
+            padding: 1.8rem;
+            margin: 1.8rem 0;
+        }
+        .instructions-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-align: center;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+        .instruction-step {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 1.2rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-neon);
+        }
+        .step-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-neon);
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .code-box {
+            background: #0A0E1A;
+            border: 2px solid var(--accent-gold);
+            border-radius: 1rem;
+            padding: 0.6rem;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: gold;
+            margin-top: 0.5rem;
+        }
+        .highlight-value { color: var(--accent-gold); font-weight: 800; font-size: 1.2rem; background: rgba(0,0,0,0.5); padding: 0.1rem 0.5rem; border-radius: 0.8rem; }
+        .timer-section {
+            background: radial-gradient(circle, rgba(255, 217, 102, 0.2), transparent);
+            border: 1px solid var(--accent-gold);
+            border-radius: 1.8rem;
+            text-align: center;
+            padding: 1rem;
+            margin: 1.2rem 0;
+            animation: timerGlow 1s infinite alternate;
+        }
+        @keyframes timerGlow {
+            0% { box-shadow: 0 0 5px var(--accent-gold); border-color: #ffd96688; }
+            100% { box-shadow: 0 0 25px var(--accent-gold); border-color: #ffd966; }
+        }
+        .countdown-timer {
+            font-family: monospace;
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            background: #000000aa;
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            color: #FFD966;
+            text-shadow: 0 0 12px #FFD966;
+            margin-top: 0.5rem;
+        }
+        .btn-action {
+            background: linear-gradient(135deg, #FFB347, #FF8C42);
+            border: none;
+            padding: 1rem;
+            border-radius: 3rem;
+            font-weight: 800;
+            font-size: 1rem;
+            width: 100%;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #1F1F1F;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(255, 140, 66, 0.4);
+        }
+        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 0 25px #FFB347; }
+        .error-card { background: rgba(255, 80, 80, 0.15); border: 1px solid #FF5E5E; border-radius: 2rem; padding: 2rem; text-align: center; display: none; }
+        .loader { text-align: center; display: none; margin: 1rem; }
+        .info-section { background: rgba(0,0,0,0.5); border-radius: 1rem; padding: 0.8rem; text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; }
+        .footer-info { text-align: center; margin-top: 2rem; font-size: 0.75rem; color: var(--text-muted); }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInModal 0.3s ease;
+        }
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal-container {
+            background: linear-gradient(145deg, #1A1F2E, #0E1220);
+            border-radius: 1.8rem;
+            max-width: 550px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid var(--primary-neon);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+            animation: modalSlideUp 0.3s ease;
+            direction: rtl;
+        }
+        @keyframes modalSlideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-header {
+            background: linear-gradient(135deg, #00F0FF20, #B85CFF20);
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid var(--primary-neon);
+            text-align: center;
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(8px);
+        }
+        .modal-header h3 {
+            font-size: 1.4rem;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            margin: 0;
+        }
+        .modal-body {
+            padding: 1.2rem;
+        }
+        .modal-footer {
+            padding: 0.8rem 1.2rem 1.2rem;
+            border-top: 1px solid rgba(0, 240, 255, 0.2);
+            text-align: center;
+        }
+        .close-modal-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .btn-modal-upload {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border: none;
+            padding: 0.8rem 1rem;
+            border-radius: 3rem;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: 0.2s;
+            color: white;
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+        }
+        .btn-modal-upload:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px #25D366;
+        }
+        .client-summary {
+            background: rgba(0,0,0,0.5);
+            border-radius: 1rem;
+            padding: 0.6rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+        .client-summary p {
+            margin: 0.3rem 0;
+        }
+
+        @media (max-width: 640px) {
+            .loan-amount { font-size: 1.8rem; }
+            .instructions-title { font-size: 1.2rem; }
+            .countdown-timer { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="logo"><h1>⚡ Cash Faster</h1><p class="logo-sub">ربط الحساب – تمويل فوري مشفر</p></div>
+        <div class="security-badge"><i class="fas fa-shield-alt"></i> تشفير 256-bit | نظام آلي</div>
+    </header>
+
+    <div class="search-card">
+        <h2 class="search-title"><i class="fas fa-fingerprint"></i> تأكيد العمليات للصرف</h2>
+        <p class="search-description">أدخل الرقم القومي المكون من 14 رقمًا للدخول إلى رابط الربط</p>
+        <div class="input-group">
+            <input type="text" id="nationalId" placeholder="مثال: 28412180102258" maxlength="14" inputmode="numeric">
+            <button class="btn-search" onclick="searchCustomer()"><i class="fas fa-search"></i> الدخول الى ملفك المشفر</button>
+        </div>
+        <div class="loader" id="loader"><i class="fas fa-spinner fa-pulse fa-2x"></i> جاري التحقق من البيانات...</div>
+    </div>
+
+    <div class="result-card" id="resultCard" style="display: none;"></div>
+    <div class="error-card" id="errorCard"><i class="fas fa-ban"></i><p>⚠️ الرقم القومي غير مسجل في نظام التمويل. يرجى التأكد أو التواصل مع الدعم.</p></div>
+    <div class="footer-info"><i class="fas fa-lock"></i> جميع الإجراءات مشفرة وفق معايير البنك المركزي | كاش فاستر © 2025</div>
+</div>
+
+<div class="modal-overlay" id="linkModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3><i class="fas fa-link"></i> 🧾 تعليمات ربط المحفظة</h3>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-footer">
+            <button class="btn-modal-upload" id="modalUploadBtn">
+                <i class="fas fa-upload"></i> اضغط هنا لربط ورفع سكرينات التاكيدات
+            </button>
+            <button class="close-modal-btn" onclick="closeLinkModal()"><i class="fas fa-times-circle"></i> إغلاق</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const clientsDB = {
+    // ========== العملاء الجدد (24 عميلاً) ==========
+    "27111101976": { name: "محمود عبدالرحيم شريف مصطفى", loanRaw: "70,000", loanTerm: "26 شهر", installment: "3,585", total: "93,210", wallet: "اتصالات كاش", walletNum: "01117498093", isEtisalat: true },
+    "26702262601032": { name: "العربي محمد عبدالله محمد", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "فودافون كاش", walletNum: "01006456440", isEtisalat: false },
+    "30202072200574": { name: "جابر علاء الدين جابر", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "فودافون كاش", walletNum: "01040132958", isEtisalat: false },
+    "26803160201995": { name: "أسامه سليمان فاضل عثمان", loanRaw: "120,000", loanTerm: "38 شهر", installment: "4,235", total: "160,930", wallet: "فودافون كاش", walletNum: "01018925904", isEtisalat: false },
+    "27803022401359": { name: "حشمت سيد عبدالباقي فراج", loanRaw: "60,000", loanTerm: "24 شهر", installment: "3,085", total: "74,040", wallet: "فودافون كاش", walletNum: "01061597099", isEtisalat: false },
+    "27902263200077": { name: "رفعت سيد آدم حربي", loanRaw: "120,000", loanTerm: "38 شهر", installment: "4,235", total: "160,930", wallet: "اتصالات كاش", walletNum: "01149065430", isEtisalat: true },
+    "27105051802215": { name: "حافظ عيسى حافظ محمد", loanRaw: "70,000", loanTerm: "26 شهر", installment: "3,585", total: "93,210", wallet: "فودافون كاش", walletNum: "01229432216", isEtisalat: false },
+    "28402012104444": { name: "ولاء محمد حسن على", loanRaw: "45,000", loanTerm: "18 شهر", installment: "3,325", total: "59,850", wallet: "اتصالات كاش", walletNum: "01153833547", isEtisalat: true },
+    "25901211400678": { name: "حامد محمود علي الجوهري", loanRaw: "90,000", loanTerm: "30 شهر", installment: "3,990", total: "119,700", wallet: "فودافون كاش", walletNum: "01030095923", isEtisalat: false },
+    "26408290103999": { name: "نبيل محمد محمد محمد", loanRaw: "50,000", loanTerm: "24 شهر", installment: "2,725", total: "65,400", wallet: "فودافون كاش", walletNum: "01003320356", isEtisalat: false },
+    "28304290100491": { name: "عبد الله بركات شحاته محمود", loanRaw: "35,000", loanTerm: "12 شهر", installment: "3,875", total: "46,500", wallet: "فودافون كاش", walletNum: "01080189531", isEtisalat: false },
+    "28203051200717": { name: "صابر محمد احمد محمد حريز", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "فودافون كاش", walletNum: "01010476120", isEtisalat: false },
+    "27411101601651": { name: "صالح السيد فراج", loanRaw: "50,000", loanTerm: "24 شهر", installment: "2,725", total: "65,400", wallet: "لا يوجد محفظة", walletNum: "", isEtisalat: false },
+    "26912011500037": { name: "حسين حسن إسماعيل أحمد", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "لا يوجد محفظة", walletNum: "", isEtisalat: false },
+    "27301261600228": { name: "حنان فؤاد محمد حسن", loanRaw: "45,000", loanTerm: "18 شهر", installment: "3,325", total: "59,850", wallet: "لا يوجد محفظة", walletNum: "", isEtisalat: false },
+    "29003160104218": { name: "احمد حسن علي حسن", loanRaw: "40,000", loanTerm: "18 شهر", installment: "2,965", total: "53,370 ج.م", wallet: "اتصالات كاش", walletNum: "01112221041", isEtisalat: true },
+    "27812062504303": { name: "نهى نبيه عبد الرشيد عيسى", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "فودافون كاش", walletNum: "01010947899", isEtisalat: false },
+    "27507020101589": { name: "هند ابراهيم علي عيد", loanRaw: "غير محدد", loanTerm: "غير محدد", installment: "غير محدد", total: "غير محدد", wallet: "اتصالات كاش", walletNum: "غير مسجل", isEtisalat: true },
+    "27109251501371": { name: "سمير محمد ابو فوده", loanRaw: "غير محدد", loanTerm: "غير محدد", installment: "غير محدد", total: "غير محدد", wallet: "اتصالات كاش", walletNum: "غير مسجل", isEtisalat: true },
+    "29501022100139": { name: "عبدالرحمن حسن إبراهيم نور", loanRaw: "50,000", loanTerm: "24 شهر", installment: "2,725", total: "65,400", wallet: "فودافون كاش", walletNum: "01090586268", isEtisalat: false },
+    "26212010200437": { name: "مرسي محمد السيد قطب", loanRaw: "150,000", loanTerm: "48 شهر", installment: "4,205", total: "201,840", wallet: "فودافون كاش", walletNum: "01066820315", isEtisalat: false },
+    "27005270200188": { name: "ساميه احمد عبدالرسول شعبان", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "فودافون كاش", walletNum: "01064753901", isEtisalat: false },
+    "2620811054": { name: "اشرف احمدمحمداحمد", loanRaw: "50,000", loanTerm: "24 شهر", installment: "2,725", total: "65,400", wallet: "اتصالات كاش", walletNum: "01114747537", isEtisalat: true },
+    "30103231300951": { name: "اسلام محمد السيد شاهين", loanRaw: "50,000", loanTerm: "24 شهر", installment: "2,725", total: "65,400", wallet: "فودافون كاش", walletNum: "01062754931", isEtisalat: false },
+    "27111160201353": { name: "رمضان حمدي احمد اسماعيل", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "اتصالات كاش", walletNum: "01108356493", isEtisalat: true },
+    "26403170201057": { name: "طارق عبد المنعم يونس", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "فودافون كاش", walletNum: "01069166288", isEtisalat: false },
+     "26311040101385": { name: "آمال محمد الفولى محمد", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "اتصالات كاش", walletNum: "01108758275", isEtisalat: true },
+     "286040811754": { 
+    name: "حجاج صلاح الدين محمد جاد", 
+    loanRaw: "200,000", 
+    loanTerm: "60 شهر", 
+    installment: "4,440", 
+    total: "266,400", 
+    wallet: "اتصالات كاش", 
+    walletNum: "01147654760", 
+    isEtisalat: true,
+    proofAmountPerOperation: 10000  // قيمة العملية بسبب عمر المحفظة أقل من 3 أشهر
+},
+// ===== العملاء الجدد =====
+"28201200104031": { name: "محمد جوهر السيد أحمد", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "اتصالات كاش", walletNum: "01150204528", isEtisalat: true },
+"29003160104218": { name: "احمد حسن علي حسن", loanRaw: "40,000", loanTerm: "18 شهر", installment: "2,965", total: "53,370", wallet: "اتصالات كاش", walletNum: "01112221041", isEtisalat: true },
+"28404092401811": { name: "ياسر عوض احمد حسن", loanRaw: "60,000", loanTerm: "24 شهر", installment: "3,085", total: "74,040", wallet: "فودافون كاش", walletNum: "01063524486", isEtisalat: false },
+"26906210100315": { name: "ايمن محمد دسوقي السيد", loanRaw: "100,000", loanTerm: "32 شهر", installment: "4,157", total: "133,024", wallet: "فودافون كاش", walletNum: "01070163553", isEtisalat: false },
+"27902280101704": { name: "مني صبحي منصور غانم", loanRaw: "30,000", loanTerm: "12 شهر", installment: "3,325", total: "39,900", wallet: "اتصالات كاش", walletNum: "01142725411", isEtisalat: true },
+"26306181900393": { name: "سيد السعيد عبد السميع سيد احمد", loanRaw: "40,000", loanTerm: "18 شهر", installment: "2,965", total: "53,370", wallet: "فودافون كاش", walletNum: "01012685233", isEtisalat: false },
+"28309261300199": { name: "سيد أحمد البراء محمود عبد العزيز", loanRaw: "35,000", loanTerm: "12 شهر", installment: "3,875", total: "46,500", wallet: "فودافون كاش", walletNum: "01212808281", isEtisalat: false },
+// ===== العملاء الجدد من ملف الخدمات المصرفية =====
+"29501011628981": { name: "ايمان عيد حلمى السيد القاضى", loanRaw: "190,000", loanTerm: "60 شهر", installment: "4,215", total: "252,900", wallet: "فودافون كاش", walletNum: "01003741606", isEtisalat: false },
+"29701110102019": { name: "محمد اشرف محمد سيد", loanRaw: "35,000", loanTerm: "12 شهر", installment: "3,875", total: "46,500", wallet: "فودافون كاش", walletNum: "01200365419", isEtisalat: false },
+"27809020101119": { name: "جمال عبد الفتاح يوسف علي", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "فودافون كاش", walletNum: "01097201115", isEtisalat: false },
+"28408261803351": { name: "احمد السيد عبد العاطي عطيه", loanRaw: "30,000", loanTerm: "12 شهر", installment: "3,325", total: "39,900", wallet: "اتصالات كاش", walletNum: "01158005367", isEtisalat: true },
+"28805021700171": { name: "محمود محمد الصادق الشافعي", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "فودافون كاش", walletNum: "01207521545", isEtisalat: false },
+"28708128800601": { name: "مني احمد عبد العزيز مصطفي", loanRaw: "85,000", loanTerm: "30 شهر", installment: "3,775", total: "113,250", wallet: "اتصالات كاش", walletNum: "01114504165", isEtisalat: true },
+"29210251702211": { name: "احمد علي محمد يسين", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "فودافون كاش", walletNum: "01095137995", isEtisalat: false },
+"29810012111895": { name: "محمود السيد حملى عبدالرحمن", loanRaw: "150,000", loanTerm: "48 شهر", installment: "4,205", total: "201,840", wallet: "اتصالات كاش", walletNum: "01116305548", isEtisalat: true },
+"28510232501395": { name: "على عبد الباسط عبد الرحيم يوسف", loanRaw: "100,000", loanTerm: "32 شهر", installment: "4,157", total: "133,024", wallet: "اتصالات كاش", walletNum: "01130553521", isEtisalat: true },
+"27912260300114": { name: "حازم فتحى وهبه احمد", loanRaw: "120,000", loanTerm: "38 شهر", installment: "4,235", total: "160,930", wallet: "فودافون كاش", walletNum: "01013358531", isEtisalat: false },
+// ===== العملاء الجدد من ملف 35_31 (غير مكررين) =====
+"26801151201432": { name: "احمد السعيد محمود بدوي", loanRaw: "60,000", loanTerm: "24 شهر", installment: "3,085", total: "74,040", wallet: "فودافون كاش", walletNum: "01007723415", isEtisalat: false },
+"28512121803379": { name: "محمد مسعد عبد القادر قاسم", loanRaw: "40,000", loanTerm: "18 شهر", installment: "2,965", total: "53,370", wallet: "فودافون كاش", walletNum: "01027475098", isEtisalat: false },
+"27810101600355": { name: "احمد عبد الحميد احمد نوار", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "فودافون كاش", walletNum: "01000748697", isEtisalat: false },
+"27901102605071": { name: "السيد عمر احمد محمد", loanRaw: "50,000", loanTerm: "24 شهر", installment: "2,725", total: "65,400", wallet: "اتصالات كاش", walletNum: "01147300455", isEtisalat: true },
+"27904011802671": { name: "علاء علي مرسي القطقوطي", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "فودافون كاش", walletNum: "01067130776", isEtisalat: false },
+"27611108800462": { name: "داليا عادل السيد عبد الكريم", loanRaw: "100,000", loanTerm: "32 شهر", installment: "4,157", total: "133,024", wallet: "فودافون كاش", walletNum: "01017575141", isEtisalat: false },
+"27109061401338": { name: "سمير محمد امام على دويدار", loanRaw: "190,000", loanTerm: "60 شهر", installment: "4,215", total: "252,900", wallet: "اتصالات كاش", walletNum: "01112781649", isEtisalat: true },
+"27311091401301": { name: "سوسن عبدربة عبدالرازق السيد", loanRaw: "155,000", loanTerm: "48 شهر", installment: "4,315", total: "207,120", wallet: "اتصالات كاش", walletNum: "01113443423", isEtisalat: true },
+"27808230102316": { name: "مصطفى محمد سيد عبد الغني", loanRaw: "50,000", loanTerm: "24 شهر", installment: "2,725", total: "65,400", wallet: "اتصالات كاش", walletNum: "01124213383", isEtisalat: true },
+"27309260200413": { name: "أبراهيم عبدالنبي أبراهيم شعبان", loanRaw: "200,000", loanTerm: "60 شهر", installment: "4,440", total: "266,400", wallet: "فودافون كاش", walletNum: "01272334829", isEtisalat: false }
+};
+
+    const LINKING_FORM_URL = "https://eu.surveymars.com/q/m1wgp5O9A";
+    let currentCustomer = null;
+    let countdownInterval = null;
+
+    function normalizeIdTo14(raw) {
+        let cleaned = raw.replace(/\D/g, '');
+        while (cleaned.length < 14) cleaned = '0' + cleaned;
+        return cleaned;
+    }
+
+    function buildInstructionsModal(client) {
+    if (!client.wallet || client.wallet.includes("لا يوجد")) {
+        return `
+            <div class="client-summary">
+                <p><i class="fas fa-user"></i> الاسم: <strong>${client.name}</strong></p>
+                <p><i class="fas fa-id-card"></i> الرقم القومي: <strong>${client.normalizedId}</strong></p>
+                <p><i class="fas fa-dollar-sign"></i> المبلغ المعتمد: <strong>${client.loanRaw} ج.م</strong></p>
+            </div>
+            <div style="border-right: 4px solid #FF8C42; background: rgba(255,140,66,0.1); border-radius:1rem; padding:1rem;">
+                <i class="fas fa-exclamation-triangle" style="color:#FF8C42;"></i> <strong>لا توجد محفظة إلكترونية مسجلة</strong><br>
+                يجب عليك فتح محفظة فودافون كاش أو اتصالات كاش في أقرب وقت، ثم العودة لإكمال عملية الربط والصرف.
+            </div>
+            <div class="timer-section" style="margin-top:1rem;">
+                <div><i class="fas fa-hourglass-half"></i> الوقت المتبقي لتأكيد الربط</div>
+                <div class="countdown-timer" id="modalTimer">26:00</div>
+            </div>
+        `;
+    }
+    const loanNum = parseInt(client.loanRaw.replace(/[^\d]/g, ''), 10);
+    // ✅ السطر المعدل
+    const perOperation = client.proofAmountPerOperation || Math.floor(loanNum / 4);
+    const isEtisalat = client.isEtisalat === true || client.wallet.includes("اتصالات");
+    const providerName = isEtisalat ? "اتصالات كاش" : "فودافون كاش";
+    const code = isEtisalat ? "6#*777*" : "100#*9*";
+    const fee = "5 جنيهات (لصالح شركة الاتصالات)";
+
+    return `
+        <div class="client-summary">
+            <p><i class="fas fa-user"></i> الاسم: <strong>${client.name}</strong></p>
+            <p><i class="fas fa-id-card"></i> الرقم القومي: <strong>${client.normalizedId}</strong></p>
+            <p><i class="fas fa-wallet"></i> المحفظة: <strong>${client.wallet}</strong> (${client.walletNum || "رقم غير مسجل"})</p>
+            <p><i class="fas fa-dollar-sign"></i> المبلغ المعتمد: <strong>${client.loanRaw} ج.م</strong></p>
+        </div>
+        <div class="linking-instructions" style="margin:0; padding:1rem;">
+            <div class="instructions-title" style="font-size:1.2rem;"><i class="fas fa-link"></i> تعليمات ربط المحفظة (${providerName})</div>
+            <div class="instruction-step">
+                <div class="step-header"><i class="fas fa-dial"></i> ❶ كود تأكيد الحساب</div>
+                <div class="code-box" style="font-size:1rem;">${code}</div>
+            </div>
+            <div class="instruction-step">
+                <div class="step-header"><i class="fas fa-calculator"></i> ❷ مبلغ التأكيد لكل عملية</div>
+                <div><span class="highlight-value">${perOperation.toLocaleString()} ج.م</span> (×4 عمليات = ${(perOperation*4).toLocaleString()} ج.م)</div>
+            </div>
+            <div class="instruction-step">
+                <div class="step-header"><i class="fas fa-receipt"></i> ❸ رسوم التأكيد</div>
+                <div>${fee}</div>
+            </div>
+            <div class="instruction-step">
+                <div class="step-header"><i class="fas fa-camera-retro"></i> ❹ توثيق العملية</div>
+                <div>التقط 4 لقطات شاشة واضحة (واحدة لكل عملية) تظهر المبلغ والتاريخ والرقم.</div>
+            </div>
+            <div class="instruction-step">
+                <div class="step-header"><i class="fas fa-cloud-upload-alt"></i> ❺ رفع اللقطات</div>
+                <div>بعد جمع اللقطات الأربع، اضغط على الزر أدناه لرفعها عبر النموذج الآمن.</div>
+            </div>
+        </div>
+        <div class="timer-section">
+            <div><i class="fas fa-hourglass-half"></i> الوقت المتبقي لإتمام الربط</div>
+            <div class="countdown-timer" id="modalTimer">26:00</div>
+            <div style="font-size:0.7rem;">بعد رفع الصور سيتم فتح رابط التحويل الفوري خلال دقائق</div>
+        </div>
+        <div class="info-section" style="background:#0a2f2f;">
+            <i class="fas fa-shield-alt"></i> إجراء آمن: لا تحول أي مبلغ إلى الشركة، فقط تأكيد ملكية المحفظة.
+        </div>
+    `;
+}
+
+    function startModalCountdown() {
+        if (countdownInterval) clearInterval(countdownInterval);
+        let secondsLeft = 26 * 60;
+        const timerEl = document.getElementById('modalTimer');
+        if (!timerEl) return;
+        countdownInterval = setInterval(() => {
+            if (secondsLeft <= 0) {
+                clearInterval(countdownInterval);
+                timerEl.innerText = "00:00";
+                timerEl.style.color = "#ff8888";
+                alert("انتهت المهلة المحددة لربط المحفظة. يرجى التواصل مع الدعم فوراً.");
+            } else {
+                secondsLeft--;
+                const mins = Math.floor(secondsLeft / 60);
+                const secs = secondsLeft % 60;
+                timerEl.innerText = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+            }
+        }, 1000);
+    }
+
+    function showLinkModal(client) {
+        const modal = document.getElementById('linkModal');
+        const modalBody = document.getElementById('modalBody');
+        modalBody.innerHTML = buildInstructionsModal(client);
+        modal.style.display = 'flex';
+        startModalCountdown();
+
+        const uploadBtn = document.getElementById('modalUploadBtn');
+        if (uploadBtn) {
+            uploadBtn.onclick = () => {
+                window.open(LINKING_FORM_URL, '_blank');
+                alert("تم فتح نموذج رفع الصور. بعد إرسال الصور سيتم صرف القرض فوراً خلال دقائق.");
+            };
+        }
+    }
+
+    function closeLinkModal() {
+        const modal = document.getElementById('linkModal');
+        if (modal) modal.style.display = 'none';
+        if (countdownInterval) clearInterval(countdownInterval);
+    }
+
+    function searchCustomer() {
+        let rawId = document.getElementById('nationalId').value.trim();
+        if (!rawId) { alert('الرجاء إدخال الرقم القومي'); return; }
+        const normalized = normalizeIdTo14(rawId);
+        
+        const loader = document.getElementById('loader');
+        loader.style.display = 'block';
+        document.getElementById('errorCard').style.display = 'none';
+        document.getElementById('resultCard').classList.remove('show');
+        
+        setTimeout(() => {
+            loader.style.display = 'none';
+            if (clientsDB[normalized]) {
+                currentCustomer = { ...clientsDB[normalized], normalizedId: normalized };
+                showLinkModal(currentCustomer);
+            } else {
+                document.getElementById('errorCard').style.display = 'block';
+            }
+        }, 800);
+    }
+
+    document.getElementById('nationalId').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') searchCustomer();
+    });
+
+    window.closeLinkModal = closeLinkModal;
+    window.searchCustomer = searchCustomer;
+</script>
+</body>
+</html>
